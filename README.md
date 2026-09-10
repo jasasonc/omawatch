@@ -3,6 +3,8 @@
 A Garmin watch face in the style of a tiling Linux desktop. Two layouts, a
 code-editor look, and the colour schemes of the Omarchy desktop.
 
+![OmaWatch](docs/preview.png)
+
 ## Layouts
 
 - **Neovim.** Your values as code rows (`hr = 54`) around a cursor line that

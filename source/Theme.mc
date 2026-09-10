@@ -16,7 +16,7 @@ module Theme {
     var slots as Array<Number> = [0, 1, 2, 3];
 
     function load() as Void {
-        themeIndex = num("Theme", 0);
+        themeIndex = Cfg.THEME >= 0 ? Cfg.THEME : num("Theme", 0);
         if (themeIndex < 0 || themeIndex >= Palettes.COLOURS.size()) { themeIndex = 0; }
         layout = num("Layout", Cfg.LAYOUT);
         if (layout < 0) { layout = Cfg.LAYOUT; }
