@@ -1,0 +1,48 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">OmaWatch</string>
+    <string id="AppNameBar">OmaWatch bar</string>
+
+    <string id="LayoutTitle">Layout</string>
+    <string id="LayoutNeovim">Neovim</string>
+    <string id="LayoutWaybar">Waybar</string>
+
+    <string id="ThemeTitle">Theme</string>
+    <string id="Theme0">Tokyo Night</string>
+    <string id="Theme1">Catppuccin</string>
+    <string id="Theme2">Ethereal</string>
+    <string id="Theme3">Everforest</string>
+    <string id="Theme4">Gruvbox</string>
+    <string id="Theme5">Hackerman</string>
+    <string id="Theme6">Kanagawa</string>
+    <string id="Theme7">Last Horizon</string>
+    <string id="Theme8">Lumon</string>
+    <string id="Theme9">Matte Black</string>
+    <string id="Theme10">Miasma</string>
+    <string id="Theme11">Nord</string>
+    <string id="Theme12">Osaka Jade</string>
+    <string id="Theme13">Retro 82</string>
+    <string id="Theme14">Ristretto</string>
+    <string id="Theme15">Solitude</string>
+    <string id="Theme16">Vantablack</string>
+    <string id="Theme17">Catppuccin Latte</string>
+    <string id="Theme18">Flexoki Light</string>
+    <string id="Theme19">Lupine</string>
+    <string id="Theme20">Rose Pine</string>
+    <string id="Theme21">White</string>
+
+    <string id="Slot1Title">Row 1</string>
+    <string id="Slot2Title">Row 2</string>
+    <string id="Slot3Title">Row 3</string>
+    <string id="Slot4Title">Row 4</string>
+
+    <string id="ValueHr">Heart rate</string>
+    <string id="ValueBb">Body battery</string>
+    <string id="ValueElev">Elevation</string>
+    <string id="ValueSteps">Steps</string>
+    <string id="ValueTemp">Temperature</string>
+    <string id="ValueBat">Watch battery</string>
+    <string id="ValueFloors">Floors</string>
+    <string id="ValueStress">Stress</string>
+
+</strings>

@@ -1,0 +1,19 @@
+info face="JetBrainsMono NF Bold" size=98 bold=1 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=130 base=100 scaleW=286 scaleH=343 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="jbmbig.png"
+chars count=15
+char id=48 x=1 y=1 width=47 height=74 xoffset=6 yoffset=27 xadvance=59 page=0 chnl=15
+char id=49 x=49 y=1 width=47 height=72 xoffset=8 yoffset=28 xadvance=59 page=0 chnl=15
+char id=50 x=97 y=1 width=47 height=73 xoffset=6 yoffset=27 xadvance=59 page=0 chnl=15
+char id=51 x=145 y=1 width=47 height=73 xoffset=5 yoffset=28 xadvance=59 page=0 chnl=15
+char id=52 x=193 y=1 width=45 height=72 xoffset=5 yoffset=28 xadvance=59 page=0 chnl=15
+char id=53 x=239 y=1 width=46 height=73 xoffset=6 yoffset=28 xadvance=59 page=0 chnl=15
+char id=54 x=1 y=76 width=49 height=73 xoffset=5 yoffset=28 xadvance=59 page=0 chnl=15
+char id=55 x=51 y=76 width=49 height=72 xoffset=6 yoffset=28 xadvance=59 page=0 chnl=15
+char id=56 x=101 y=76 width=49 height=74 xoffset=5 yoffset=27 xadvance=59 page=0 chnl=15
+char id=57 x=151 y=76 width=49 height=73 xoffset=5 yoffset=27 xadvance=59 page=0 chnl=15
+char id=58 x=201 y=76 width=19 height=56 xoffset=20 yoffset=45 xadvance=59 page=0 chnl=15
+char id=58188 x=1 y=151 width=118 height=91 xoffset=0 yoffset=12 xadvance=59 page=0 chnl=15
+char id=58189 x=120 y=151 width=117 height=104 xoffset=0 yoffset=13 xadvance=59 page=0 chnl=15
+char id=62016 x=1 y=256 width=102 height=57 xoffset=0 yoffset=36 xadvance=59 page=0 chnl=15
+char id=58125 x=104 y=256 width=85 height=86 xoffset=0 yoffset=22 xadvance=59 page=0 chnl=15

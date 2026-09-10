@@ -1,0 +1,5 @@
+<fonts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <font id="JbmBig" filename="jbmbig.fnt" antialias="true" />
+    <font id="JbmRow" filename="jbmrow.fnt" antialias="true" />
+    <font id="JbmSmall" filename="jbmsmall.fnt" antialias="true" />
+</fonts>

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omarchy Watch Face Mockups</title>
+<style>
+  :root {
+    --bg:#1a1b26; --dbg:#0e0e14; --lbg:#24283b; --sel:#292e42; --muted:#414868;
+    --fg:#a9b1d6; --dfg:#565f89; --bfg:#c0caf5; --accent:#7aa2f7;
+    --red:#f7768e; --yellow:#e0af68; --orange:#eb927b; --green:#9ece6a;
+    --cyan:#449dab; --blue:#7aa2f7; --magenta:#ad8ee6;
+    --z:0.8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding-block: 28px 48px; padding-inline: 20px;
+    background: var(--dbg); color: var(--fg);
+    font: 13px/1.5 "JetBrainsMono Nerd Font", "JetBrains Mono", ui-monospace, monospace;
+  }
+  .wrap { max-width: 1500px; margin: 0 auto; }
+  h1 { color: var(--bfg); font-size: 20px; margin: 0 0 4px; font-weight: 700; }
+  .sub { color: var(--dfg); margin: 0 0 18px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .chip, .tog {
+    font: inherit; color: var(--fg); background: var(--bg);
+    border: 1px solid var(--sel); border-radius: 6px; padding: 4px 10px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c1); border: 1px solid #ffffff22; }
+  .chip i:nth-child(2) { background: var(--c2); margin-left: -9px; }
+  .chip i:nth-child(3) { background: var(--c3); margin-left: -9px; }
+  .chip em { color: var(--dfg); font-style: normal; }
+  .chip[aria-pressed="true"], .tog[aria-pressed="true"] { border-color: var(--accent); color: var(--bfg); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 26px; }
+  .row label { display: inline-flex; align-items: center; gap: 8px; color: var(--fg); }
+  input[type=range] { accent-color: var(--accent); width: 140px; }
+  input[type=checkbox] { accent-color: var(--accent); }
+
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(470px * var(--z) + 34px)), 1fr)); }
+  .card { background: var(--bg); border: 1px solid var(--sel); border-radius: 10px; padding: 22px 16px 16px; }
+  .card h2 { color: var(--bfg); font-size: 14px; margin: 18px 0 2px; }
+  .card h2 span { color: var(--accent); }
+  .card p { color: var(--dfg); margin: 0; font-size: 12px; }
+  footer { color: var(--dfg); margin-top: 28px; max-width: 80ch; }
+
+  /* Watch case: Instinct-style rugged shape, the screen is 390 x 390 px */
+  .watch { width: 470px; height: 470px; margin: 0 auto; position: relative; zoom: var(--zz, var(--z)); }
+  .case {
+    position: absolute; inset: 0; border-radius: 34%;
+    background: linear-gradient(150deg, #34353b, #16171a 55%, #0b0b0d);
+    box-shadow: inset 0 0 0 2px #45464d, inset 0 -6px 14px #0008, 0 16px 36px #0009;
+  }
+  .btn { position: absolute; width: 9px; height: 44px; background: linear-gradient(90deg,#2a2b30,#44454c); border-radius: 3px; }
+  .bezel { position: absolute; inset: 26px; border-radius: 50%; background: #030303; box-shadow: inset 0 0 0 2px #222328; }
+  .screen {
+    position: absolute; left: 40px; top: 40px; width: 390px; height: 390px; border-radius: 50%;
+    overflow: hidden; background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.2;
+  }
+  .screen.aod { --bg: #000; --dbg: #000; --lbg: #000; background: #000; }
+  .a { position: absolute; white-space: pre; }
+  .acc{color:var(--accent)} .fg{color:var(--fg)} .bfg{color:var(--bfg)} .dfg{color:var(--dfg)} .mut{color:var(--muted)}
+  .red{color:var(--red)} .yellow{color:var(--yellow)} .green{color:var(--green)} .cya{color:var(--cyan)}
+  .blu{color:var(--blue)} .mag{color:var(--magenta)} .ora{color:var(--orange)} .b{font-weight:700} .i{font-style:italic}
+  .sw { display: inline-block; width: 18px; height: 12px; margin: 0 1px; }
+  .ws { display: inline-block; width: 20px; text-align: center; }
+  .wsdot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; background: var(--bfg); vertical-align: 1px; }
+  .aod .wsdot { background: var(--dfg); }
+  .bars { display: flex; align-items: flex-end; gap: 1px; }
+  .bars i { flex: 1; display: block; border-radius: 1px 1px 0 0; }
+  .bt { position: absolute; top: -10px; font-size: 13px; line-height: 18px; background: var(--bg); white-space: pre; padding: 0 1px; }
+  .tile { position: absolute; border: 2px solid var(--muted); background: var(--bg); }
+  .tile.on { border-color: var(--accent); }
+  .aod .tile { border-color: var(--muted); }
+  .cur { display: inline-block; width: .5em; height: .8em; background: var(--accent); margin-left: 6px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Omarchy watch face mockups</h1>
+  <p class="sub">Garmin Instinct 3 AMOLED, 390×390 round screen. Colors come from the Omarchy themes on this PC. All numbers are made up.</p>
+  <div class="chips" id="chips"></div>
+  <div class="row">
+    <button class="tog" id="aod" aria-pressed="false">Always-on mode</button>
+    <label><input type="checkbox" id="live"> Live time</label>
+    <label>Size <input type="range" id="zoom" min="0.5" max="1.2" step="0.05" value="0.8"></label>
+  </div>
+  <main class="grid" id="grid"></main>
+  <footer>
+    <p>Always-on mode is what the watch shows when you do not look at it. Garmin allows only a small part of the AMOLED pixels to be lit in that mode, so each face keeps little more than the time.</p>
+  </footer>
+</div>
+
+<script>
+const THEMES = {"catppuccin-latte":{"mode":"light","accent":"#1e66f5","background":"#eff1f5","darker_background":"#d7d8dc","lighter_background":"#dce0e8","selection":"#ccd0da","muted":"#acb0be","foreground":"#4c4f69","dark_foreground":"#9ca0b0","bright_foreground":"#4c4f69","red":"#d20f39","yellow":"#df8e1d","orange":"#d84e2b","green":"#40a02b","cyan":"#179299","blue":"#1e66f5","magenta":"#ea76cb"},"catppuccin":{"mode":"dark","accent":"#89b4fa","background":"#1e1e2e","darker_background":"#101019","lighter_background":"#313244","selection":"#45475a","muted":"#585b70","foreground":"#cdd6f4","dark_foreground":"#6c7086","bright_foreground":"#cdd6f4","red":"#f38ba8","yellow":"#f9e2af","orange":"#f6b6ab","green":"#a6e3a1","cyan":"#94e2d5","blue":"#89b4fa","magenta":"#f5c2e7"},"ethereal":{"mode":"dark","accent":"#7d82d9","background":"#060B1E","darker_background":"#030610","lighter_background":"#131a3a","selection":"#252e56","muted":"#6d7db6","foreground":"#ffcead","dark_foreground":"#6d7db6","bright_foreground":"#ffcead","red":"#ED5B5A","yellow":"#E9BB4F","orange":"#eb8b54","green":"#92a593","cyan":"#a3bfd1","blue":"#7d82d9","magenta":"#c89dc1"},"everforest":{"mode":"dark","accent":"#7fbbb3","background":"#2d353b","darker_background":"#181d20","lighter_background":"#343f44","selection":"#3d484d","muted":"#475258","foreground":"#d3c6aa","dark_foreground":"#4f585e","bright_foreground":"#d3c6aa","red":"#e67e80","yellow":"#dbbc7f","orange":"#e09d7f","green":"#a7c080","cyan":"#83c092","blue":"#7fbbb3","magenta":"#d699b6"},"flexoki-light":{"mode":"light","accent":"#205EA6","background":"#FFFCF0","darker_background":"#e5e2d8","lighter_background":"#E6E4D9","selection":"#CECDC3","muted":"#B7B5AC","foreground":"#100F0F","dark_foreground":"#878580","bright_foreground":"#100F0F","red":"#D14D41","yellow":"#D0A215","orange":"#d0772b","green":"#879A39","cyan":"#3AA99F","blue":"#205EA6","magenta":"#CE5D97"},"gruvbox":{"mode":"dark","accent":"#7daea3","background":"#282828","darker_background":"#161616","lighter_background":"#3c3836","selection":"#504945","muted":"#665c54","foreground":"#d4be98","dark_foreground":"#7c6f64","bright_foreground":"#d4be98","red":"#ea6962","yellow":"#d8a657","orange":"#e1875c","green":"#a9b665","cyan":"#89b482","blue":"#7daea3","magenta":"#d3869b"},"hackerman":{"mode":"dark","accent":"#82FB9C","background":"#0B0C16","darker_background":"#06060c","lighter_background":"#151828","selection":"#1f253a","muted":"#2d3450","foreground":"#ddf7ff","dark_foreground":"#6a6e95","bright_foreground":"#ddf7ff","red":"#50f872","yellow":"#50f7d4","orange":"#50f7a3","green":"#4fe88f","cyan":"#7cf8f7","blue":"#829dd4","magenta":"#86a7df"},"kanagawa":{"mode":"dark","accent":"#dcd7ba","background":"#1f1f28","darker_background":"#111116","lighter_background":"#223249","selection":"#363646","muted":"#54546D","foreground":"#dcd7ba","dark_foreground":"#727169","bright_foreground":"#dcd7ba","red":"#c34043","yellow":"#c0a36e","orange":"#c17158","green":"#76946a","cyan":"#6a9589","blue":"#7e9cd8","magenta":"#957fb8"},"last-horizon":{"mode":"dark","accent":"#b59790","background":"#0c0b0c","darker_background":"#060606","lighter_background":"#0c0b0c","selection":"#584e51","muted":"#584e51","foreground":"#FAFCFB","dark_foreground":"#584e51","bright_foreground":"#e2dddc","red":"#c38b7b","yellow":"#6B5E73","green":"#87a9b0","cyan":"#a5a0b6","blue":"#b59790","magenta":"#c4d8e2"},"lumon":{"mode":"dark","accent":"#8bc9eb","background":"#16242d","darker_background":"#0b1216","lighter_background":"#1b2d40","selection":"#243d56","muted":"#304860","foreground":"#d6e2ee","dark_foreground":"#4d86b0","bright_foreground":"#f2fcff","red":"#4d86b0","yellow":"#6fa4c9","orange":"#8bc9eb","green":"#5e95bc","cyan":"#b4e4f6","blue":"#6fb8e3","magenta":"#8bc9eb"},"lupine":{"mode":"light","accent":"#3264eb","background":"#fafafa","darker_background":"#dedede","lighter_background":"#f5f5f5","selection":"#d0d0d0","muted":"#9e9e9e","foreground":"#212121","dark_foreground":"#757575","bright_foreground":"#000000","red":"#c900c4","yellow":"#026fde","orange":"#026fde","green":"#4a2fd0","cyan":"#0c67de","blue":"#3264eb","magenta":"#8a4ad7"},"matte-black":{"mode":"dark","accent":"#e68e0d","background":"#121212","darker_background":"#090909","lighter_background":"#1e1e1e","selection":"#2a2a2a","muted":"#333333","foreground":"#bebebe","dark_foreground":"#555555","bright_foreground":"#bebebe","red":"#D35F5F","yellow":"#b91c1c","orange":"#c63d3d","green":"#FFC107","cyan":"#bebebe","blue":"#e68e0d","magenta":"#D35F5F"},"miasma":{"mode":"dark","accent":"#78824b","background":"#222222","darker_background":"#121212","lighter_background":"#2c2c2c","selection":"#383838","muted":"#666666","foreground":"#c2c2b0","dark_foreground":"#555555","bright_foreground":"#c2c2b0","red":"#685742","yellow":"#b36d43","orange":"#8d6242","green":"#5f875f","cyan":"#c9a554","blue":"#78824b","magenta":"#bb7744"},"nord":{"mode":"dark","accent":"#81a1c1","background":"#2e3440","darker_background":"#191c23","lighter_background":"#3b4252","selection":"#434c5e","muted":"#4c566a","foreground":"#d8dee9","dark_foreground":"#667080","bright_foreground":"#d8dee9","red":"#bf616a","yellow":"#ebcb8b","orange":"#d5967a","green":"#a3be8c","cyan":"#88c0d0","blue":"#81a1c1","magenta":"#b48ead"},"osaka-jade":{"mode":"dark","accent":"#509475","background":"#111c18","darker_background":"#090f0d","lighter_background":"#23372B","selection":"#32473B","muted":"#53685B","foreground":"#C1C497","dark_foreground":"#81B8A8","bright_foreground":"#F7E8B2","red":"#FF5345","yellow":"#459451","orange":"#a2734b","green":"#549e6a","cyan":"#2DD5B7","blue":"#509475","magenta":"#D2689C"},"retro-82":{"mode":"dark","accent":"#faa968","background":"#05182e","darker_background":"#020c17","lighter_background":"#0a2540","selection":"#134e5a","muted":"#2a6b78","foreground":"#f6dcac","dark_foreground":"#3f8f8a","bright_foreground":"#f6dcac","red":"#f85525","yellow":"#e97b3c","orange":"#faa968","green":"#028391","cyan":"#8cbfb8","blue":"#3f8f8a","magenta":"#3f8f8a"},"ristretto":{"mode":"dark","accent":"#f38d70","background":"#2c2525","darker_background":"#181414","lighter_background":"#3d2f2a","selection":"#403e41","muted":"#72696a","foreground":"#e6d9db","dark_foreground":"#72696a","bright_foreground":"#e6d9db","red":"#fd6883","yellow":"#f9cc6c","orange":"#fb9a77","green":"#adda78","cyan":"#85dacc","blue":"#f38d70","magenta":"#a8a9eb"},"rose-pine":{"mode":"light","accent":"#56949f","background":"#faf4ed","darker_background":"#e1dbd5","lighter_background":"#f2e9e1","selection":"#dfdad9","muted":"#cecacd","foreground":"#575279","dark_foreground":"#9893a5","bright_foreground":"#575279","red":"#b4637a","yellow":"#ea9d34","orange":"#cf8057","green":"#286983","cyan":"#d7827e","blue":"#56949f","magenta":"#907aa9"},"solitude":{"mode":"dark","accent":"#798186","background":"#101315","darker_background":"#080a0b","lighter_background":"#101315","selection":"#343d41","muted":"#4b4e55","foreground":"#cacccc","dark_foreground":"#4b4e55","bright_foreground":"#a5aeb4","red":"#565d60","yellow":"#d9dbdc","green":"#9fa5a9","cyan":"#707070","blue":"#798186","magenta":"#aeaeae"},"tokyo-night":{"mode":"dark","accent":"#7aa2f7","background":"#1a1b26","darker_background":"#0e0e14","lighter_background":"#24283b","selection":"#292e42","muted":"#414868","foreground":"#a9b1d6","dark_foreground":"#565f89","bright_foreground":"#c0caf5","red":"#f7768e","yellow":"#e0af68","orange":"#eb927b","green":"#9ece6a","cyan":"#449dab","blue":"#7aa2f7","magenta":"#ad8ee6"},"vantablack":{"mode":"dark","accent":"#8d8d8d","background":"#000000","darker_background":"#070707","lighter_background":"#1a1a1a","selection":"#1a1a1a","muted":"#7a7a7a","foreground":"#ffffff","dark_foreground":"#505050","bright_foreground":"#ffffff","red":"#a4a4a4","yellow":"#cecece","orange":"#b9b9b9","green":"#b6b6b6","cyan":"#b0b0b0","blue":"#8d8d8d","magenta":"#9b9b9b"},"white":{"mode":"light","accent":"#6e6e6e","background":"#ffffff","darker_background":"#e8e8e8","lighter_background":"#c0c0c0","selection":"#c0c0c0","muted":"#808080","foreground":"#000000","dark_foreground":"#c0c0c0","bright_foreground":"#000000","red":"#2a2a2a","yellow":"#4a4a4a","green":"#3a3a3a","cyan":"#3e3e3e","blue":"#1a1a1a","magenta":"#2e2e2e"}};
+const ORDER = ['tokyo-night', ...Object.keys(THEMES).filter(k => k !== 'tokyo-night' && THEMES[k].mode === 'dark')];
+const VARS = { bg:'background', dbg:'darker_background', lbg:'lighter_background', sel:'selection', muted:'muted',
+  fg:'foreground', dfg:'dark_foreground', bfg:'bright_foreground', accent:'accent', red:'red', yellow:'yellow',
+  orange:'orange', green:'green', cyan:'cyan', blue:'blue', magenta:'magenta' };
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('owf-' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('owf-' + k, JSON.stringify(v)); } catch {} }
+};
+const state = { theme: store.get('theme', 'tokyo-night'), aod: store.get('aod', false), live: store.get('live', false), zoom: store.get('zoom', 0.8) };
+if (!THEMES[state.theme]) state.theme = 'tokyo-night';
+
+const pad = n => String(n).padStart(2, '0');
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const DAYS_LONG = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_LONG = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const HIST = Array.from({ length: 44 }, (_, i) =>
+  Math.min(1, Math.max(0.08, 0.42 + 0.22 * Math.sin(i * 0.45) + 0.18 * Math.sin(i * 1.7 + 1) + 0.1 * Math.cos(i * 3.1))));
+
+function data() {
+  const now = state.live ? new Date() : new Date(2026, 8, 10, 14, 32, 7);
+  const dow = (now.getDay() + 6) % 7;
+  return {
+    h: pad(now.getHours()), m: pad(now.getMinutes()), s: pad(now.getSeconds()), dow,
+    day: DAYS[dow], date: `${now.getDate()} ${MONTHS[now.getMonth()]}`,
+    dayLong: DAYS_LONG[dow], dateLong: `${now.getDate()} ${MONTHS_LONG[now.getMonth()]}`,
+    hr: 54, hrv: 62, bb: 78, stress: 24, steps: 8432, stepsTxt: '8 432', goal: 10000,
+    batt: 87, battDays: 11, notif: 3
+  };
+}
+
+// Nerd Font glyphs (Font Awesome and Powerline ranges)
+const I = { heart:'\uf004', bolt:'\uf0e7', bt:'\uf293', bat:'\uf240', bell:'\uf0f3', branch:'\ue0a0', pr:'\ue0b4', pl:'\ue0b6', lock:'\uf023' };
+const BIKE = '   __o\n _ \\&lt;,_\n(_)/ (_)';
+
+const A = (css, html = '') => `<div class="a" style="${css}">${html}</div>`;
+const C = (css, html) => A('left:0;right:0;text-align:center;' + css, html);
+const s = (cls, t) => `<span class="${cls}">${t}</span>`;
+const meter = (f, n, c) => { const k = Math.round(f * n); return s(c, '■'.repeat(k)) + s('mut', '■'.repeat(n - k)); };
+const bars = (h, col) => `<div class="bars" style="height:${h}px">${HIST.map(v =>
+  `<i style="height:${Math.round(v * 100)}%;background:var(--${col || (v > .72 ? 'red' : v > .5 ? 'yellow' : 'green')})"></i>`).join('')}</div>`;
+const palette = () => ['red','yellow','green','cyan','blue','magenta','orange','fg'].map(c => `<i class="sw" style="background:var(--${c})"></i>`).join('');
+const ws = (d, dim) => [1,2,3,4,5,6,7].map(i => i - 1 === d.dow
+  ? '<span class="ws"><i class="wsdot"></i></span>'
+  : `<span class="ws ${dim ? 'mut' : 'dfg'}">${i}</span>`).join('');
+const kv = (rows, w = 6) => rows.map(([k, v]) => s('acc b', k.padEnd(w)) + s('fg', v)).join('\n');
+const box = (css, col, inner) => A(`${css};border:1px solid var(--${col});border-radius:6px`, inner);
+const btitle = (n, t, col, numCol = 'red') => `<div class="bt" style="left:10px">${s(col, '┐')}${s(numCol, '¹²³'[n])}${s('fg', t)}${s(col, '┌')}</div>`;
+const tile = (css, on, inner) => `<div class="tile${on ? ' on' : ''}" style="${css}">${inner}</div>`;
+const bigTime = (d, size, cls, extra = '') => `font-size:${size}px;font-weight:700;line-height:1;letter-spacing:-1px;${extra}`;
+
+const FACES = [
+  {
+    name: 'Fastfetch', note: 'System info layout. Plain text only, so it is the easiest one to build.',
+    render: d =>
+      C('top:44px;font-size:15px', s('acc b', 'user') + '@' + s('acc b', 'watch')) +
+      C('top:66px;font-size:15px', s('mut', '─────────────')) +
+      C('top:86px;' + bigTime(d, 78), s('bfg', `${d.h}:${d.m}`)) +
+      A('top:180px;left:110px;font-size:16px;line-height:24px', kv([
+        ['date', `${d.day} ${d.date}`], ['hr', `${d.hr} bpm`], ['hrv', `${d.hrv} ms`],
+        ['bb', `${d.bb} / 100`], ['steps', d.stepsTxt], ['batt', `${d.batt}% (${d.battDays}d)`]])) +
+      C('top:332px;line-height:0', palette()),
+    aod: d =>
+      C('top:140px;' + bigTime(d, 78), s('dfg', `${d.h}:${d.m}`)) +
+      C('top:236px;font-size:15px', s('mut', '❯ ') + s('dfg', `bb ${d.bb}`))
+  },
+  {
+    name: 'Waybar', note: 'Top bar like Omarchy. Days are workspaces 1 to 7, and today is the filled one.',
+    render: d =>
+      A('top:0;left:0;right:0;height:102px;background:var(--dbg);border-bottom:1px solid var(--sel)') +
+      C('top:40px;font-size:14px', ws(d)) +
+      A('top:70px;left:72px;font-size:14px', s('dfg', `${I.bell} ${d.notif}`)) +
+      C('top:70px;font-size:14px', s('fg', `${d.day} ${d.date}`)) +
+      A('top:70px;right:70px;font-size:14px', s('dfg', `${I.bt}  ${I.bat}`)) +
+      C('top:120px;' + bigTime(d, 94, '', 'letter-spacing:-2px'), s('bfg', `${d.h}:${d.m}`)) +
+      C('top:236px;font-size:17px', s('red', I.heart) + ' ' + s('fg', d.hr) + '    ' + s('yellow', I.bolt) + ' ' + s('fg', d.bb) + '    ' + s('acc', 'hrv') + ' ' + s('fg', d.hrv)) +
+      C('top:274px;font-size:14px', s('dfg', 'steps ') + s('fg', d.stepsTxt)) +
+      A('top:300px;left:125px;width:140px;height:4px;background:var(--sel)', `<i style="display:block;height:100%;width:${d.steps / d.goal * 100}%;background:var(--accent)"></i>`) +
+      C('top:318px;font-size:13px', s('dfg', `${I.bat} ${d.batt}%  ${d.battDays}d`)),
+    aod: d =>
+      C('top:84px;font-size:14px', ws(d, true)) +
+      C('top:140px;' + bigTime(d, 94, '', 'letter-spacing:-2px'), s('dfg', `${d.h}:${d.m}`))
+  },
+  {
+    name: 'Waybar + fastfetch', note: 'Top bar with the clock, then a fastfetch block with an MTB rider as the logo.',
+    render: d =>
+      A('top:0;left:0;right:0;height:116px;background:var(--dbg);border-bottom:1px solid var(--sel)') +
+      C('top:30px;font-size:13px', ws(d)) +
+      A('top:70px;left:64px;font-size:14px', s('dfg', `${I.bell} ${d.notif}`)) +
+      C('top:52px;' + bigTime(d, 50), s('bfg', `${d.h}:${d.m}`)) +
+      A('top:70px;right:62px;font-size:14px', s('dfg', `${I.bt} ${I.bat}`)) +
+      A('top:150px;left:52px;font-size:21px;line-height:24px;font-weight:700', s('acc', BIKE)) +
+      A('top:238px;left:60px;font-size:13px;line-height:18px', s('dfg', `${d.day}\n${d.date}`)) +
+      A('top:134px;left:176px;font-size:15px;line-height:23px',
+        s('acc b', 'user') + '@' + s('acc b', 'watch') + '\n' + s('mut', '─────────────') + '\n' +
+        kv([['hr', `${d.hr} bpm`], ['hrv', `${d.hrv} ms`], ['bb', `${d.bb}`], ['steps', d.stepsTxt], ['batt', `${d.batt}%`]])) +
+      C('top:318px;line-height:0', palette()),
+    aod: d =>
+      C('top:96px;font-size:18px;line-height:21px;font-weight:700', `<span class="mut" style="display:inline-block;text-align:left">${BIKE}</span>`) +
+      C('top:176px;' + bigTime(d, 64), s('dfg', `${d.h}:${d.m}`))
+  },
+  {
+    name: 'btop', note: 'Boxes like btop. Heart rate graph for the last hours, meters for body battery and steps.',
+    render: d =>
+      C('top:44px;font-size:13px', s('dfg', `${d.day} ${d.date}`)) +
+      box('top:74px;left:58px;width:274px;height:128px', 'accent',
+        btitle(0, 'hr', 'acc') +
+        `<div class="bt" style="left:0;right:0;text-align:center;background:transparent"><span style="background:var(--bg);padding:0 4px">${s('bfg b', `${d.h}:${d.m}:${d.s}`)}</span></div>` +
+        A('top:10px;right:10px;font-size:12px', s('dfg', 'hrv ') + s('fg', `${d.hrv}ms`)) +
+        A('left:10px;right:10px;top:30px', bars(66)) +
+        A('bottom:6px;left:10px;font-size:12px', s('dfg', 'min 48')) +
+        A('bottom:5px;right:10px;font-size:13px', s('bfg b', `${d.hr} bpm`))) +
+      box('top:216px;left:44px;width:146px;height:88px', 'cyan',
+        btitle(1, 'bb', 'cya') +
+        A('top:12px;left:10px;font-size:12px;line-height:17px',
+          s('fg', 'body') + s('bfg', String(d.bb).padStart(13)) + '\n' + meter(d.bb / 100, 12, 'green') + '\n' +
+          s('fg', 'stress') + s('bfg', String(d.stress).padStart(11)) + '\n' + meter(d.stress / 100, 12, 'yellow'))) +
+      box('top:216px;left:200px;width:146px;height:88px', 'magenta',
+        btitle(2, 'steps', 'mag') +
+        A('top:10px;left:10px;font-size:20px;font-weight:700', s('bfg', d.stepsTxt)) +
+        A('top:38px;left:10px;font-size:12px', s('dfg', 'goal 10 000')) +
+        A('top:58px;left:10px;font-size:12px', meter(d.steps / d.goal, 12, 'mag'))) +
+      C('top:318px;font-size:12px', s('dfg', 'up ') + s('fg', `${d.battDays}d`) + '  ' + s('dfg', 'bat ') + s('fg', `${d.batt}%`) + '  ' + s('acc', I.bt)),
+    aod: d =>
+      box('top:132px;left:75px;width:240px;height:116px', 'muted',
+        btitle(0, 'clock', 'mut', 'mut') + C('top:24px;' + bigTime(d, 70), s('dfg', `${d.h}:${d.m}`)))
+  },
+  {
+    name: 'Neovim', note: 'The cursor line holds the time. Statusline shows mode, branch and battery.',
+    render: d => {
+      const ln = (y, n, code) => A(`top:${y}px;left:52px;width:30px;text-align:right;font-size:15px`, s('dfg', n)) + A(`top:${y}px;left:94px;font-size:15px`, code);
+      const kw = t => s('mag', t), num = t => s('ora', t), op = s('cya', '=');
+      return ln(58, 3, s('mut i', `-- ${d.day.toLowerCase()} ${d.date.toLowerCase()}`)) +
+        ln(82, 2, `${kw('local')} ${s('fg', 'hr')}  ${op} ${num(d.hr)}`) +
+        ln(106, 1, `${kw('local')} ${s('fg', 'hrv')} ${op} ${num(d.hrv)}`) +
+        A('top:132px;left:0;right:0;height:82px;background:var(--lbg)') +
+        A('top:164px;left:52px;width:30px;text-align:right;font-size:15px', s('yellow b', '4')) +
+        A('top:138px;left:90px;' + bigTime(d, 70), s('bfg', `${d.h}:${d.m}`) + '<i class="cur"></i>') +
+        ln(224, 1, `${kw('local')} ${s('fg', 'bb')}  ${op} ${num(d.bb)}`) +
+        ln(248, 2, `${kw('local')} ${s('fg', 'steps')} ${op} ${num(d.steps)}`) +
+        ln(272, 3, `${kw('return')} ${s('green', '"ride"')}`) +
+        A('top:296px;left:70px;font-size:15px', s('mut', '~')) +
+        A('top:320px;left:0;right:0;height:22px;background:var(--dbg)') +
+        A('top:320px;left:78px;font-size:13px;line-height:22px',
+          `<span style="background:var(--accent);color:var(--bg);padding:0 7px;font-weight:700">NORMAL</span><span style="color:var(--accent);background:var(--sel)">${I.pr}</span><span style="background:var(--sel);color:var(--fg);padding:0 6px">${I.branch} main</span><span style="color:var(--sel)">${I.pr}</span>`) +
+        A('top:320px;right:78px;font-size:13px;line-height:22px',
+          `<span style="color:var(--accent)">${I.pl}</span><span style="background:var(--accent);color:var(--bg);padding:0 7px;font-weight:700">${d.batt}%</span>`) +
+        C('top:348px;font-size:12px', s('dfg', '"ride.lua" 6L, 84B'));
+    },
+    aod: d =>
+      A('top:164px;left:52px;width:30px;text-align:right;font-size:15px', s('mut', '4')) +
+      A('top:138px;left:90px;' + bigTime(d, 70), s('dfg', `${d.h}:${d.m}`)) +
+      C('top:250px;font-size:13px', s('mut', ':sleep'))
+  },
+  {
+    name: 'Hyprland tiles', note: 'Each stat in its own tiled window with gaps. The time is the focused window.',
+    render: d =>
+      A('left:0;top:0;right:0;bottom:0;background:radial-gradient(circle at 30% 20%, var(--lbg), var(--dbg) 70%)') +
+      tile('left:70px;top:58px;width:250px;height:118px', true,
+        C('top:14px;' + bigTime(d, 72), s('bfg', `${d.h}:${d.m}`)) +
+        C('bottom:10px;font-size:13px', s('dfg', `${d.day.toLowerCase()} ${d.date.toLowerCase()}`))) +
+      tile('left:32px;top:184px;width:100px;height:100px', false,
+        A('top:8px;left:10px;font-size:12px', s('red', I.heart) + ' ' + s('dfg', 'hr')) +
+        A('top:26px;left:10px;font-size:32px;font-weight:700', s('bfg', d.hr)) +
+        A('left:10px;right:10px;bottom:10px', bars(18, 'red'))) +
+      tile('left:140px;top:184px;width:110px;height:100px', false,
+        C('top:8px;font-size:12px', s('yellow', I.bolt) + ' ' + s('dfg', 'bb')) +
+        C('top:26px;font-size:40px;font-weight:700', s('bfg', d.bb)) +
+        C('bottom:10px;font-size:10px', meter(d.bb / 100, 8, 'yellow'))) +
+      tile('left:258px;top:184px;width:100px;height:100px', false,
+        A('top:8px;right:10px;font-size:12px', s('dfg', 'hrv')) +
+        A('top:26px;right:10px;font-size:32px;font-weight:700', s('bfg', d.hrv)) +
+        A('bottom:10px;right:10px;font-size:11px', s('green', 'balanced'))) +
+      tile('left:84px;top:292px;width:222px;height:54px', false,
+        A('top:8px;left:12px;font-size:12px', s('dfg', 'steps ') + s('fg', d.stepsTxt)) +
+        A('top:8px;right:12px;font-size:12px', s('acc', `${Math.round(d.steps / d.goal * 100)}%`)) +
+        A('left:12px;right:12px;bottom:12px;height:5px;background:var(--sel)', `<i style="display:block;height:100%;width:${d.steps / d.goal * 100}%;background:var(--accent)"></i>`)),
+    aod: d =>
+      tile('left:70px;top:136px;width:250px;height:118px', false,
+        C('top:22px;' + bigTime(d, 72), s('dfg', `${d.h}:${d.m}`)))
+  },
+  {
+    name: 'Hyprlock', note: 'The Omarchy lock screen. Big clock, and the password field shows your stats.',
+    render: d =>
+      A('left:0;top:0;right:0;bottom:0;background:radial-gradient(circle at 50% 35%, var(--lbg), var(--dbg) 75%)') +
+      C('top:84px;font-size:15px', s('fg', `${d.dayLong}, ${d.dateLong}`)) +
+      C('top:112px;' + bigTime(d, 104, '', 'letter-spacing:-3px'), s('bfg', `${d.h}:${d.m}`)) +
+      A('top:244px;left:80px;right:80px;height:44px;border:2px solid var(--accent);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px',
+        '<span>' + s('red', I.heart) + ' ' + s('fg', d.hr) + '   ' + s('yellow', I.bolt) + ' ' + s('fg', d.bb) + '   ' + s('acc', 'hrv') + ' ' + s('fg', d.hrv) + '</span>') +
+      C('top:306px;font-size:13px', s('dfg', `${I.bat} ${d.batt}%   steps ${d.stepsTxt}`)),
+    aod: d =>
+      C('top:120px;' + bigTime(d, 104, '', 'letter-spacing:-3px'), s('dfg', `${d.h}:${d.m}`)) +
+      A('top:250px;left:110px;right:110px;height:36px;border:1px solid var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px', s('mut', I.lock))
+  }
+];
+
+const label = k => k.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+const root = document.documentElement;
+
+function applyTheme() {
+  const t = THEMES[state.theme];
+  for (const [v, key] of Object.entries(VARS)) {
+    const val = t[key] || (key === 'bright_foreground' ? t.foreground : key === 'darker_background' ? t.background : null);
+    if (val) root.style.setProperty('--' + v, val);
+  }
+  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.k === state.theme));
+}
+
+function buildChips() {
+  document.getElementById('chips').innerHTML = ORDER.map(k => {
+    const t = THEMES[k];
+    return `<button class="chip" data-k="${k}" style="--c1:${t.background};--c2:${t.accent};--c3:${t.foreground}"><i></i><i></i><i></i>${label(k)}${k === 'tokyo-night' ? ' <em>(yours)</em>' : ''}</button>`;
+  }).join('');
+  document.getElementById('chips').addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    state.theme = b.dataset.k; store.set('theme', state.theme); applyTheme();
+  });
+}
+
+function buildGrid() {
+  document.getElementById('grid').innerHTML = FACES.map((f, i) => `
+    <section class="card">
+      <div class="watch">
+        <div class="case"></div>
+        <div class="btn" style="left:-6px;top:118px"></div><div class="btn" style="left:-6px;top:212px"></div><div class="btn" style="left:-6px;top:306px"></div>
+        <div class="btn" style="right:-6px;top:140px"></div><div class="btn" style="right:-6px;top:286px"></div>
+        <div class="bezel"></div>
+        <div class="screen" data-i="${i}"></div>
+      </div>
+      <h2><span>${i + 1}.</span> ${f.name}</h2>
+      <p>${f.note}</p>
+    </section>`).join('');
+}
+
+function render() {
+  const d = data();
+  document.querySelectorAll('.screen').forEach(el => {
+    const f = FACES[+el.dataset.i];
+    el.classList.toggle('aod', state.aod);
+    el.innerHTML = state.aod ? f.aod(d) : f.render(d);
+  });
+}
+
+function fitZoom() {
+  root.style.setProperty('--z', state.zoom);
+  const card = document.querySelector('.card');
+  const maxZ = card ? (card.clientWidth - 32) / 470 : state.zoom;
+  document.querySelectorAll('.watch').forEach(w => w.style.setProperty('--zz', Math.min(state.zoom, maxZ)));
+}
+
+buildChips();
+buildGrid();
+applyTheme();
+const aodBtn = document.getElementById('aod'), live = document.getElementById('live'), zoom = document.getElementById('zoom');
+aodBtn.setAttribute('aria-pressed', state.aod);
+live.checked = state.live;
+zoom.value = state.zoom;
+aodBtn.onclick = () => { state.aod = !state.aod; store.set('aod', state.aod); aodBtn.setAttribute('aria-pressed', state.aod); render(); };
+live.onchange = () => { state.live = live.checked; store.set('live', state.live); render(); };
+zoom.oninput = () => { state.zoom = +zoom.value; store.set('zoom', state.zoom); fitZoom(); };
+window.addEventListener('resize', fitZoom);
+render();
+fitZoom();
+setInterval(() => { if (state.live) render(); }, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.Layout" title="@Strings.LayoutTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.LayoutNeovim</listEntry>
+            <listEntry value="1">@Strings.LayoutWaybar</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Theme" title="@Strings.ThemeTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.Theme0</listEntry>
+            <listEntry value="1">@Strings.Theme1</listEntry>
+            <listEntry value="2">@Strings.Theme2</listEntry>
+            <listEntry value="3">@Strings.Theme3</listEntry>
+            <listEntry value="4">@Strings.Theme4</listEntry>
+            <listEntry value="5">@Strings.Theme5</listEntry>
+            <listEntry value="6">@Strings.Theme6</listEntry>
+            <listEntry value="7">@Strings.Theme7</listEntry>
+            <listEntry value="8">@Strings.Theme8</listEntry>
+            <listEntry value="9">@Strings.Theme9</listEntry>
+            <listEntry value="10">@Strings.Theme10</listEntry>
+            <listEntry value="11">@Strings.Theme11</listEntry>
+            <listEntry value="12">@Strings.Theme12</listEntry>
+            <listEntry value="13">@Strings.Theme13</listEntry>
+            <listEntry value="14">@Strings.Theme14</listEntry>
+            <listEntry value="15">@Strings.Theme15</listEntry>
+            <listEntry value="16">@Strings.Theme16</listEntry>
+            <listEntry value="17">@Strings.Theme17</listEntry>
+            <listEntry value="18">@Strings.Theme18</listEntry>
+            <listEntry value="19">@Strings.Theme19</listEntry>
+            <listEntry value="20">@Strings.Theme20</listEntry>
+            <listEntry value="21">@Strings.Theme21</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot1" title="@Strings.Slot1Title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.ValueHr</listEntry>
+            <listEntry value="1">@Strings.ValueBb</listEntry>
+            <listEntry value="2">@Strings.ValueElev</listEntry>
+            <listEntry value="3">@Strings.ValueSteps</listEntry>
+            <listEntry value="4">@Strings.ValueTemp</listEntry>
+            <listEntry value="5">@Strings.ValueBat</listEntry>
+            <listEntry value="6">@Strings.ValueFloors</listEntry>
+            <listEntry value="7">@Strings.ValueStress</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot2" title="@Strings.Slot2Title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.ValueHr</listEntry>
+            <listEntry value="1">@Strings.ValueBb</listEntry>
+            <listEntry value="2">@Strings.ValueElev</listEntry>
+            <listEntry value="3">@Strings.ValueSteps</listEntry>
+            <listEntry value="4">@Strings.ValueTemp</listEntry>
+            <listEntry value="5">@Strings.ValueBat</listEntry>
+            <listEntry value="6">@Strings.ValueFloors</listEntry>
+            <listEntry value="7">@Strings.ValueStress</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot3" title="@Strings.Slot3Title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.ValueHr</listEntry>
+            <listEntry value="1">@Strings.ValueBb</listEntry>
+            <listEntry value="2">@Strings.ValueElev</listEntry>
+            <listEntry value="3">@Strings.ValueSteps</listEntry>
+            <listEntry value="4">@Strings.ValueTemp</listEntry>
+            <listEntry value="5">@Strings.ValueBat</listEntry>
+            <listEntry value="6">@Strings.ValueFloors</listEntry>
+            <listEntry value="7">@Strings.ValueStress</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot4" title="@Strings.Slot4Title">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.ValueHr</listEntry>
+            <listEntry value="1">@Strings.ValueBb</listEntry>
+            <listEntry value="2">@Strings.ValueElev</listEntry>
+            <listEntry value="3">@Strings.ValueSteps</listEntry>
+            <listEntry value="4">@Strings.ValueTemp</listEntry>
+            <listEntry value="5">@Strings.ValueBat</listEntry>
+            <listEntry value="6">@Strings.ValueFloors</listEntry>
+            <listEntry value="7">@Strings.ValueStress</listEntry>
+        </settingConfig>
+    </setting>
+
+</settings>

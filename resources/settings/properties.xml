@@ -1,0 +1,11 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <property id="Layout" type="number">-1</property>
+    <property id="Theme" type="number">0</property>
+
+    <property id="Slot1" type="number">0</property>
+    <property id="Slot2" type="number">1</property>
+    <property id="Slot3" type="number">2</property>
+    <property id="Slot4" type="number">3</property>
+
+</properties>

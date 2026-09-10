@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omarchy Watch Face Mockups, Round 2</title>
+<style>
+  :root {
+    --bg:#1a1b26; --dbg:#0e0e14; --lbg:#24283b; --sel:#292e42; --muted:#414868;
+    --fg:#a9b1d6; --dfg:#565f89; --bfg:#c0caf5; --accent:#7aa2f7;
+    --red:#f7768e; --yellow:#e0af68; --orange:#eb927b; --green:#9ece6a;
+    --cyan:#449dab; --blue:#7aa2f7; --magenta:#ad8ee6;
+    --z:0.8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding-block: 28px 48px; padding-inline: 20px;
+    background: var(--dbg); color: var(--fg);
+    font: 13px/1.5 "JetBrainsMono Nerd Font", "JetBrains Mono", ui-monospace, monospace;
+  }
+  .wrap { max-width: 1500px; margin: 0 auto; }
+  h1 { color: var(--bfg); font-size: 20px; margin: 0 0 4px; font-weight: 700; }
+  .sub { color: var(--dfg); margin: 0 0 18px; max-width: 90ch; }
+  .sub a { color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .chip, .tog {
+    font: inherit; color: var(--fg); background: var(--bg);
+    border: 1px solid var(--sel); border-radius: 6px; padding: 4px 10px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c1); border: 1px solid #ffffff22; }
+  .chip i:nth-child(2) { background: var(--c2); margin-left: -9px; }
+  .chip i:nth-child(3) { background: var(--c3); margin-left: -9px; }
+  .chip em { color: var(--dfg); font-style: normal; }
+  .chip[aria-pressed="true"], .tog[aria-pressed="true"] { border-color: var(--accent); color: var(--bfg); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 26px; }
+  .row label { display: inline-flex; align-items: center; gap: 8px; color: var(--fg); }
+  input[type=range] { accent-color: var(--accent); width: 140px; }
+  input[type=checkbox] { accent-color: var(--accent); }
+
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(470px * var(--z) + 34px)), 1fr)); }
+  .card { background: var(--bg); border: 1px solid var(--sel); border-radius: 10px; padding: 22px 16px 16px; }
+  .card h2 { color: var(--bfg); font-size: 14px; margin: 18px 0 2px; }
+  .card h2 span { color: var(--accent); }
+  .card p { color: var(--dfg); margin: 0; font-size: 12px; }
+  footer { color: var(--dfg); margin-top: 28px; max-width: 80ch; }
+
+  /* Watch case: Instinct-style rugged shape, the screen is 390 x 390 px */
+  .watch { width: 470px; height: 470px; margin: 0 auto; position: relative; zoom: var(--zz, var(--z)); }
+  .case {
+    position: absolute; inset: 0; border-radius: 34%;
+    background: linear-gradient(150deg, #34353b, #16171a 55%, #0b0b0d);
+    box-shadow: inset 0 0 0 2px #45464d, inset 0 -6px 14px #0008, 0 16px 36px #0009;
+  }
+  .btn { position: absolute; width: 9px; height: 44px; background: linear-gradient(90deg,#2a2b30,#44454c); border-radius: 3px; }
+  .bezel { position: absolute; inset: 26px; border-radius: 50%; background: #030303; box-shadow: inset 0 0 0 2px #222328; }
+  .screen {
+    position: absolute; left: 40px; top: 40px; width: 390px; height: 390px; border-radius: 50%;
+    overflow: hidden; background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.2;
+  }
+  .screen.aod { --bg: #000; --dbg: #000; --lbg: #000; background: #000; }
+  .a { position: absolute; white-space: pre; }
+  .fg{color:var(--fg)} .bfg{color:var(--bfg)} .dfg{color:var(--dfg)} .mut{color:var(--muted)} .acc{color:var(--accent)}
+  .red{color:var(--red)} .yellow{color:var(--yellow)} .green{color:var(--green)} .cya{color:var(--cyan)}
+  .mag{color:var(--magenta)} .ora{color:var(--orange)} .b{font-weight:700} .i{font-style:italic}
+  .ws { display: inline-block; width: 20px; text-align: center; }
+  .wsdot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; background: var(--bfg); vertical-align: 1px; }
+  .aod .wsdot { background: var(--dfg); }
+  .bars { display: flex; align-items: flex-end; gap: 1px; }
+  .bars i { flex: 1; display: block; border-radius: 1px 1px 0 0; }
+  .bt { position: absolute; top: -10px; font-size: 13px; line-height: 18px; background: var(--bg); white-space: pre; padding: 0 1px; }
+  .cur { display: inline-block; width: .32em; height: .72em; background: var(--accent); margin-left: 6px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Omarchy watch face mockups, round 2</h1>
+  <p class="sub">Your direction: a big time near the middle, stats as <code>hr = 54</code> code rows, the btop heart rate graph, and a sunrise to sunset line. No name text. Garmin Instinct 3 AMOLED, 390×390. All numbers are made up. <a href="index.html">Round 1</a></p>
+  <div class="chips" id="chips"></div>
+  <div class="row">
+    <button class="tog" id="aod" aria-pressed="false">Always-on mode</button>
+    <label><input type="checkbox" id="live"> Live time</label>
+    <label>Size <input type="range" id="zoom" min="0.5" max="1.2" step="0.05" value="0.8"></label>
+  </div>
+  <main class="grid" id="grid"></main>
+  <footer>
+    <p>The sun line fills from sunrise (left) to sunset (right), and the dot is now. Turn on Live time to see it move. The sunrise and sunset times are for Ljubljana on 10 September.</p>
+  </footer>
+</div>
+
+<script>
+const THEMES = {"catppuccin-latte":{"mode":"light","accent":"#1e66f5","background":"#eff1f5","darker_background":"#d7d8dc","lighter_background":"#dce0e8","selection":"#ccd0da","muted":"#acb0be","foreground":"#4c4f69","dark_foreground":"#9ca0b0","bright_foreground":"#4c4f69","red":"#d20f39","yellow":"#df8e1d","orange":"#d84e2b","green":"#40a02b","cyan":"#179299","blue":"#1e66f5","magenta":"#ea76cb"},"catppuccin":{"mode":"dark","accent":"#89b4fa","background":"#1e1e2e","darker_background":"#101019","lighter_background":"#313244","selection":"#45475a","muted":"#585b70","foreground":"#cdd6f4","dark_foreground":"#6c7086","bright_foreground":"#cdd6f4","red":"#f38ba8","yellow":"#f9e2af","orange":"#f6b6ab","green":"#a6e3a1","cyan":"#94e2d5","blue":"#89b4fa","magenta":"#f5c2e7"},"ethereal":{"mode":"dark","accent":"#7d82d9","background":"#060B1E","darker_background":"#030610","lighter_background":"#131a3a","selection":"#252e56","muted":"#6d7db6","foreground":"#ffcead","dark_foreground":"#6d7db6","bright_foreground":"#ffcead","red":"#ED5B5A","yellow":"#E9BB4F","orange":"#eb8b54","green":"#92a593","cyan":"#a3bfd1","blue":"#7d82d9","magenta":"#c89dc1"},"everforest":{"mode":"dark","accent":"#7fbbb3","background":"#2d353b","darker_background":"#181d20","lighter_background":"#343f44","selection":"#3d484d","muted":"#475258","foreground":"#d3c6aa","dark_foreground":"#4f585e","bright_foreground":"#d3c6aa","red":"#e67e80","yellow":"#dbbc7f","orange":"#e09d7f","green":"#a7c080","cyan":"#83c092","blue":"#7fbbb3","magenta":"#d699b6"},"flexoki-light":{"mode":"light","accent":"#205EA6","background":"#FFFCF0","darker_background":"#e5e2d8","lighter_background":"#E6E4D9","selection":"#CECDC3","muted":"#B7B5AC","foreground":"#100F0F","dark_foreground":"#878580","bright_foreground":"#100F0F","red":"#D14D41","yellow":"#D0A215","orange":"#d0772b","green":"#879A39","cyan":"#3AA99F","blue":"#205EA6","magenta":"#CE5D97"},"gruvbox":{"mode":"dark","accent":"#7daea3","background":"#282828","darker_background":"#161616","lighter_background":"#3c3836","selection":"#504945","muted":"#665c54","foreground":"#d4be98","dark_foreground":"#7c6f64","bright_foreground":"#d4be98","red":"#ea6962","yellow":"#d8a657","orange":"#e1875c","green":"#a9b665","cyan":"#89b482","blue":"#7daea3","magenta":"#d3869b"},"hackerman":{"mode":"dark","accent":"#82FB9C","background":"#0B0C16","darker_background":"#06060c","lighter_background":"#151828","selection":"#1f253a","muted":"#2d3450","foreground":"#ddf7ff","dark_foreground":"#6a6e95","bright_foreground":"#ddf7ff","red":"#50f872","yellow":"#50f7d4","orange":"#50f7a3","green":"#4fe88f","cyan":"#7cf8f7","blue":"#829dd4","magenta":"#86a7df"},"kanagawa":{"mode":"dark","accent":"#dcd7ba","background":"#1f1f28","darker_background":"#111116","lighter_background":"#223249","selection":"#363646","muted":"#54546D","foreground":"#dcd7ba","dark_foreground":"#727169","bright_foreground":"#dcd7ba","red":"#c34043","yellow":"#c0a36e","orange":"#c17158","green":"#76946a","cyan":"#6a9589","blue":"#7e9cd8","magenta":"#957fb8"},"last-horizon":{"mode":"dark","accent":"#b59790","background":"#0c0b0c","darker_background":"#060606","lighter_background":"#0c0b0c","selection":"#584e51","muted":"#584e51","foreground":"#FAFCFB","dark_foreground":"#584e51","bright_foreground":"#e2dddc","red":"#c38b7b","yellow":"#6B5E73","green":"#87a9b0","cyan":"#a5a0b6","blue":"#b59790","magenta":"#c4d8e2"},"lumon":{"mode":"dark","accent":"#8bc9eb","background":"#16242d","darker_background":"#0b1216","lighter_background":"#1b2d40","selection":"#243d56","muted":"#304860","foreground":"#d6e2ee","dark_foreground":"#4d86b0","bright_foreground":"#f2fcff","red":"#4d86b0","yellow":"#6fa4c9","orange":"#8bc9eb","green":"#5e95bc","cyan":"#b4e4f6","blue":"#6fb8e3","magenta":"#8bc9eb"},"lupine":{"mode":"light","accent":"#3264eb","background":"#fafafa","darker_background":"#dedede","lighter_background":"#f5f5f5","selection":"#d0d0d0","muted":"#9e9e9e","foreground":"#212121","dark_foreground":"#757575","bright_foreground":"#000000","red":"#c900c4","yellow":"#026fde","orange":"#026fde","green":"#4a2fd0","cyan":"#0c67de","blue":"#3264eb","magenta":"#8a4ad7"},"matte-black":{"mode":"dark","accent":"#e68e0d","background":"#121212","darker_background":"#090909","lighter_background":"#1e1e1e","selection":"#2a2a2a","muted":"#333333","foreground":"#bebebe","dark_foreground":"#555555","bright_foreground":"#bebebe","red":"#D35F5F","yellow":"#b91c1c","orange":"#c63d3d","green":"#FFC107","cyan":"#bebebe","blue":"#e68e0d","magenta":"#D35F5F"},"miasma":{"mode":"dark","accent":"#78824b","background":"#222222","darker_background":"#121212","lighter_background":"#2c2c2c","selection":"#383838","muted":"#666666","foreground":"#c2c2b0","dark_foreground":"#555555","bright_foreground":"#c2c2b0","red":"#685742","yellow":"#b36d43","orange":"#8d6242","green":"#5f875f","cyan":"#c9a554","blue":"#78824b","magenta":"#bb7744"},"nord":{"mode":"dark","accent":"#81a1c1","background":"#2e3440","darker_background":"#191c23","lighter_background":"#3b4252","selection":"#434c5e","muted":"#4c566a","foreground":"#d8dee9","dark_foreground":"#667080","bright_foreground":"#d8dee9","red":"#bf616a","yellow":"#ebcb8b","orange":"#d5967a","green":"#a3be8c","cyan":"#88c0d0","blue":"#81a1c1","magenta":"#b48ead"},"osaka-jade":{"mode":"dark","accent":"#509475","background":"#111c18","darker_background":"#090f0d","lighter_background":"#23372B","selection":"#32473B","muted":"#53685B","foreground":"#C1C497","dark_foreground":"#81B8A8","bright_foreground":"#F7E8B2","red":"#FF5345","yellow":"#459451","orange":"#a2734b","green":"#549e6a","cyan":"#2DD5B7","blue":"#509475","magenta":"#D2689C"},"retro-82":{"mode":"dark","accent":"#faa968","background":"#05182e","darker_background":"#020c17","lighter_background":"#0a2540","selection":"#134e5a","muted":"#2a6b78","foreground":"#f6dcac","dark_foreground":"#3f8f8a","bright_foreground":"#f6dcac","red":"#f85525","yellow":"#e97b3c","orange":"#faa968","green":"#028391","cyan":"#8cbfb8","blue":"#3f8f8a","magenta":"#3f8f8a"},"ristretto":{"mode":"dark","accent":"#f38d70","background":"#2c2525","darker_background":"#181414","lighter_background":"#3d2f2a","selection":"#403e41","muted":"#72696a","foreground":"#e6d9db","dark_foreground":"#72696a","bright_foreground":"#e6d9db","red":"#fd6883","yellow":"#f9cc6c","orange":"#fb9a77","green":"#adda78","cyan":"#85dacc","blue":"#f38d70","magenta":"#a8a9eb"},"rose-pine":{"mode":"light","accent":"#56949f","background":"#faf4ed","darker_background":"#e1dbd5","lighter_background":"#f2e9e1","selection":"#dfdad9","muted":"#cecacd","foreground":"#575279","dark_foreground":"#9893a5","bright_foreground":"#575279","red":"#b4637a","yellow":"#ea9d34","orange":"#cf8057","green":"#286983","cyan":"#d7827e","blue":"#56949f","magenta":"#907aa9"},"solitude":{"mode":"dark","accent":"#798186","background":"#101315","darker_background":"#080a0b","lighter_background":"#101315","selection":"#343d41","muted":"#4b4e55","foreground":"#cacccc","dark_foreground":"#4b4e55","bright_foreground":"#a5aeb4","red":"#565d60","yellow":"#d9dbdc","green":"#9fa5a9","cyan":"#707070","blue":"#798186","magenta":"#aeaeae"},"tokyo-night":{"mode":"dark","accent":"#7aa2f7","background":"#1a1b26","darker_background":"#0e0e14","lighter_background":"#24283b","selection":"#292e42","muted":"#414868","foreground":"#a9b1d6","dark_foreground":"#565f89","bright_foreground":"#c0caf5","red":"#f7768e","yellow":"#e0af68","orange":"#eb927b","green":"#9ece6a","cyan":"#449dab","blue":"#7aa2f7","magenta":"#ad8ee6"},"vantablack":{"mode":"dark","accent":"#8d8d8d","background":"#000000","darker_background":"#070707","lighter_background":"#1a1a1a","selection":"#1a1a1a","muted":"#7a7a7a","foreground":"#ffffff","dark_foreground":"#505050","bright_foreground":"#ffffff","red":"#a4a4a4","yellow":"#cecece","orange":"#b9b9b9","green":"#b6b6b6","cyan":"#b0b0b0","blue":"#8d8d8d","magenta":"#9b9b9b"},"white":{"mode":"light","accent":"#6e6e6e","background":"#ffffff","darker_background":"#e8e8e8","lighter_background":"#c0c0c0","selection":"#c0c0c0","muted":"#808080","foreground":"#000000","dark_foreground":"#c0c0c0","bright_foreground":"#000000","red":"#2a2a2a","yellow":"#4a4a4a","green":"#3a3a3a","cyan":"#3e3e3e","blue":"#1a1a1a","magenta":"#2e2e2e"}};
+const ORDER = ['tokyo-night', ...Object.keys(THEMES).filter(k => k !== 'tokyo-night' && THEMES[k].mode === 'dark')];
+const VARS = { bg:'background', dbg:'darker_background', lbg:'lighter_background', sel:'selection', muted:'muted',
+  fg:'foreground', dfg:'dark_foreground', bfg:'bright_foreground', accent:'accent', red:'red', yellow:'yellow',
+  orange:'orange', green:'green', cyan:'cyan', blue:'blue', magenta:'magenta' };
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('owf2-' + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('owf2-' + k, JSON.stringify(v)); } catch {} }
+};
+const state = { theme: store.get('theme', 'tokyo-night'), aod: store.get('aod', false), live: store.get('live', false), zoom: store.get('zoom', 0.8) };
+if (!THEMES[state.theme]) state.theme = 'tokyo-night';
+
+const pad = n => String(n).padStart(2, '0');
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const HIST = Array.from({ length: 44 }, (_, i) =>
+  Math.min(1, Math.max(0.08, 0.42 + 0.22 * Math.sin(i * 0.45) + 0.18 * Math.sin(i * 1.7 + 1) + 0.1 * Math.cos(i * 3.1))));
+const RISE = 6 * 60 + 34, SET = 19 * 60 + 17;
+
+function data() {
+  const now = state.live ? new Date() : new Date(2026, 8, 10, 14, 32, 7);
+  const dow = (now.getDay() + 6) % 7;
+  const mins = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+  return {
+    h: pad(now.getHours()), m: pad(now.getMinutes()), s: pad(now.getSeconds()), dow,
+    day: DAYS[dow], date: `${now.getDate()} ${MONTHS[now.getMonth()]}`,
+    hr: 54, bb: 78, stress: 24, steps: 8432,
+    rise: '06:34', set: '19:17', sun: Math.min(1, Math.max(0, (mins - RISE) / (SET - RISE)))
+  };
+}
+
+// Nerd Font glyphs: weather sunrise and sunset
+const I = { rise:'\ue34c', set:'\ue34d' };
+
+const A = (css, html = '') => `<div class="a" style="${css}">${html}</div>`;
+const C = (css, html) => A('left:0;right:0;text-align:center;' + css, html);
+const s = (cls, t) => `<span class="${cls}">${t}</span>`;
+const block = html => `<span style="display:inline-block;text-align:left">${html}</span>`;
+const bigTime = (d, size, extra = '') => `font-size:${size}px;font-weight:700;line-height:1;letter-spacing:-1px;${extra}`;
+const time = (d, cls) => s(cls, `${d.h}:${d.m}`);
+
+// Code rows: hr = 54
+const kv = (k, v, w = 0) => s('fg', k.padEnd(w)) + s('cya', ' = ') + s('ora', v);
+const kvs = (rows, w) => rows.map(([k, v]) => kv(k, v, w)).join('\n');
+
+// btop pieces
+const zone = v => v > .72 ? 'red' : v > .5 ? 'yellow' : 'green';
+const bars = h => `<div class="bars" style="height:${h}px">${HIST.map(v =>
+  `<i style="height:${Math.round(v * 100)}%;background:var(--${zone(v)})"></i>`).join('')}</div>`;
+const BR = ['⠀', '⣀', '⣤', '⣶', '⣿'];
+const braille = (vals, rows) => {
+  const out = [];
+  for (let r = rows - 1; r >= 0; r--) {
+    const cls = r / rows >= 0.66 ? 'red' : r / rows >= 0.33 ? 'yellow' : 'green';
+    out.push(s(cls, vals.map(v => BR[Math.max(0, Math.min(4, Math.round(v * rows * 4) - r * 4))]).join('')));
+  }
+  return out.join('\n');
+};
+const box = (css, col, inner) => A(`${css};border:1px solid var(--${col});border-radius:6px`, inner);
+const btitle = (t, col) => `<div class="bt" style="left:10px">${s(col, '┐')}${s('red', '¹')}${s('fg', t)}${s(col, '┌')}</div>`;
+const bright = (html, col) => `<div class="bt" style="right:10px">${s(col, '┐')}${html}${s(col, '┌')}</div>`;
+const skyline = h => `<div class="bars" style="height:${h}px;gap:2px">${HIST.map((v, i) => i === HIST.length - 1
+  ? `<i style="height:${Math.round(v * 100)}%;background:var(--accent)"></i>`
+  : `<i style="height:${Math.round(v * 100)}%;background:var(--lbg);border-top:2px solid var(--${zone(v)})"></i>`).join('')}</div>`;
+
+// Sun: a straight line with the times at the ends, or an arc along the top edge
+const sunLine = (d, top, w, fs = 11, dim = false) => {
+  const p = (d.sun * 100).toFixed(1), on = dim ? 'var(--dfg)' : 'var(--yellow)';
+  return A(`top:${top}px;left:${195 - w / 2}px;width:${w}px;display:flex;align-items:center;gap:7px;font-size:${fs}px;line-height:1`,
+    s(dim ? 'mut' : 'yellow', d.rise) +
+    `<span style="flex:1;position:relative;height:2px;background:var(--sel)"><i style="position:absolute;left:0;top:0;height:2px;width:${p}%;background:${on}"></i><i style="position:absolute;left:calc(${p}% - 3px);top:-2px;width:6px;height:6px;border-radius:50%;background:${on}"></i></span>` +
+    s(dim ? 'mut' : 'dfg', d.set));
+};
+const sunArc = (d, dim = false) => {
+  const r = 176, a0 = -52 * Math.PI / 180, a1 = -a0, a = a0 + (a1 - a0) * d.sun;
+  const P = t => `${(195 + r * Math.sin(t)).toFixed(1)} ${(195 - r * Math.cos(t)).toFixed(1)}`;
+  const [x, y] = P(a).split(' '), on = dim ? 'var(--dfg)' : 'var(--yellow)';
+  return `<svg class="a" style="left:0;top:0" width="390" height="390">` +
+    `<path d="M${P(a0)} A${r} ${r} 0 0 1 ${P(a1)}" style="fill:none;stroke:var(--sel);stroke-width:2"/>` +
+    `<path d="M${P(a0)} A${r} ${r} 0 0 1 ${P(a)}" style="fill:none;stroke:${on};stroke-width:3;stroke-linecap:round"/>` +
+    `<circle cx="${x}" cy="${y}" r="${dim ? 3 : 5}" style="fill:${on}${dim ? '' : ';filter:drop-shadow(0 0 4px ' + on + ')'}"/></svg>` +
+    A('top:94px;left:36px;font-size:12px', s(dim ? 'mut' : 'yellow', d.rise)) +
+    A('top:94px;right:36px;font-size:12px', s(dim ? 'mut' : 'dfg', d.set));
+};
+const ws = (d, dim) => [1,2,3,4,5,6,7].map(i => i - 1 === d.dow
+  ? '<span class="ws"><i class="wsdot"></i></span>'
+  : `<span class="ws ${dim ? 'mut' : 'dfg'}">${i}</span>`).join('');
+
+const FACES = [
+  {
+    name: 'Neovim + btop', note: 'Code rows above and below the cursor line that holds the time. The heart rate graph sits in a btop box at the bottom.',
+    render: d => {
+      const n = (y, t, cur) => A(`top:${y}px;left:58px;width:22px;text-align:right;font-size:14px`, s(cur ? 'yellow b' : 'mut', t));
+      const l = (y, k, v) => A(`top:${y}px;left:92px;font-size:15px`, kv(k, v, 6));
+      return sunLine(d, 36, 196) +
+        C('top:58px;font-size:13px', s('mut i', `-- ${d.day.toLowerCase()} ${d.date.toLowerCase()}`)) +
+        n(84, 2) + l(84, 'hr', d.hr) + n(106, 1) + l(106, 'bb', d.bb) +
+        A('top:132px;left:0;right:0;height:80px;background:var(--lbg)') + n(163, 3, true) +
+        A('top:135px;left:88px;' + bigTime(d, 74), time(d, 'bfg') + '<i class="cur"></i>') +
+        n(222, 1) + l(222, 'stress', d.stress) + n(244, 2) + l(244, 'steps', d.steps) +
+        box('top:282px;left:74px;width:242px;height:56px', 'accent',
+          btitle('hr', 'acc') + bright(s('dfg', '4h'), 'acc') +
+          A('left:8px;right:8px;top:13px', bars(35)));
+    },
+    aod: d => sunLine(d, 36, 196, 11, true) + A('top:135px;left:88px;' + bigTime(d, 74), time(d, 'dfg'))
+  },
+  {
+    name: 'Waybar daylight', note: 'The bottom edge of the bar fills from sunrise to sunset. Days are workspaces. Code rows and the btop graph below the clock.',
+    render: d => {
+      const px = 24 + 342 * d.sun;
+      return A('top:0;left:0;right:0;height:98px;background:var(--dbg)') +
+        A('top:97px;left:0;right:0;height:2px;background:var(--sel)') +
+        A(`top:96px;left:0;width:${px}px;height:4px;background:var(--yellow)`) +
+        A(`top:93px;left:${px - 5}px;width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px var(--yellow)`) +
+        C('top:36px;font-size:13px', ws(d)) +
+        A('top:64px;left:58px;font-size:13px', s('yellow', `${I.rise} ${d.rise}`)) +
+        C('top:64px;font-size:13px', s('fg', `${d.day} ${d.date}`)) +
+        A('top:64px;right:58px;font-size:13px', s('dfg', `${d.set} ${I.set}`)) +
+        C('top:114px;' + bigTime(d, 96, 'letter-spacing:-2px'), time(d, 'bfg')) +
+        C('top:222px;font-size:15px;line-height:22px', block(kv('hr', d.hr, 6) + '   ' + kv('bb', d.bb, 5) + '\n' + kv('stress', d.stress, 6) + '   ' + kv('steps', d.steps, 5))) +
+        box('top:282px;left:75px;width:240px;height:54px', 'accent', btitle('hr', 'acc') + bright(s('dfg', '4h'), 'acc') +
+          A('left:8px;right:8px;top:12px', bars(34)));
+    },
+    aod: d => {
+      const px = 24 + 342 * d.sun;
+      return A('top:97px;left:0;right:0;height:1px;background:var(--muted)') + A(`top:96px;left:0;width:${px}px;height:3px;background:var(--dfg)`) +
+        C('top:36px;font-size:13px', ws(d, true)) + C('top:114px;' + bigTime(d, 96, 'letter-spacing:-2px'), time(d, 'dfg'));
+    }
+  },
+  {
+    name: 'Sun arc', note: 'Daylight as an arc along the round edge, the sun at the current time. Code block and btop graph side by side.',
+    render: d => sunArc(d) +
+      C('top:60px;font-size:13px', s('dfg', `${d.day} ${d.date}`)) +
+      C('top:114px;' + bigTime(d, 92, 'letter-spacing:-2px'), time(d, 'bfg')) +
+      A('top:226px;left:64px;font-size:14px;line-height:23px', kvs([['hr', d.hr], ['bb', d.bb], ['stress', d.stress]], 6)) +
+      box('top:232px;left:196px;width:136px;height:62px', 'accent', btitle('hr', 'acc') + A('left:6px;right:6px;top:12px', bars(42))) +
+      C('top:314px;font-size:14px', kv('steps', d.steps)),
+    aod: d => sunArc(d, true) + C('top:114px;' + bigTime(d, 92, 'letter-spacing:-2px'), time(d, 'dfg'))
+  },
+  {
+    name: 'Heart rate skyline', note: 'The btop graph fills the bottom of the round screen like a skyline. The bright last bar is now.',
+    render: d =>
+      sunLine(d, 36, 200) +
+      C('top:62px;font-size:13px', s('dfg', `${d.day} ${d.date}`)) +
+      C('top:90px;font-size:16px', kv('hr', d.hr) + '   ' + kv('bb', d.bb)) +
+      C('top:118px;' + bigTime(d, 104, 'letter-spacing:-3px'), time(d, 'bfg')) +
+      C('top:232px;font-size:14px', kv('stress', d.stress) + '   ' + kv('steps', d.steps)) +
+      A('left:0;right:0;bottom:0', skyline(124)),
+    aod: d => sunLine(d, 36, 200, 11, true) + C('top:118px;' + bigTime(d, 104, 'letter-spacing:-3px'), time(d, 'dfg'))
+  },
+  {
+    name: 'btop clock', note: 'One big btop box: the time on top and a braille heart rate graph below it, like the real btop.',
+    render: d =>
+      sunLine(d, 36, 196) +
+      C('top:60px;font-size:13px', s('dfg', `${d.day} ${d.date}`)) +
+      box('top:94px;left:38px;width:314px;height:194px', 'accent',
+        btitle('hr', 'acc') + bright(s('bfg b', d.hr) + s('dfg', ' bpm'), 'acc') +
+        C('top:16px;' + bigTime(d, 86, 'letter-spacing:-2px'), time(d, 'bfg')) +
+        A('left:0;right:0;top:110px;text-align:center;font-size:16px;line-height:16px', braille(HIST.slice(-30), 4))) +
+      C('top:302px;font-size:14px', kv('bb', d.bb) + '   ' + kv('stress', d.stress)) +
+      C('top:326px;font-size:14px', kv('steps', d.steps)),
+    aod: d => sunLine(d, 36, 196, 11, true) +
+      box('top:94px;left:38px;width:314px;height:194px', 'muted', C('top:54px;' + bigTime(d, 86, 'letter-spacing:-2px'), time(d, 'dfg')))
+  },
+  {
+    name: 'Big clock', note: 'The largest time. Sun line on top, two code rows and a small braille graph below.',
+    render: d =>
+      sunLine(d, 40, 214, 12) +
+      C('top:68px;font-size:14px', s('mut i', `-- ${d.day.toLowerCase()} ${d.date.toLowerCase()}`)) +
+      C('top:106px;' + bigTime(d, 114, 'letter-spacing:-4px'), time(d, 'bfg')) +
+      C('top:236px;font-size:15px;line-height:22px', block(kv('hr', d.hr, 6) + '   ' + kv('bb', d.bb, 5) + '\n' + kv('stress', d.stress, 6) + '   ' + kv('steps', d.steps, 5))) +
+      C('top:292px;font-size:13px;line-height:13px', braille(HIST.slice(-22), 3)),
+    aod: d => sunLine(d, 40, 214, 12, true) + C('top:106px;' + bigTime(d, 114, 'letter-spacing:-4px'), time(d, 'dfg'))
+  }
+];
+
+const label = k => k.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+const root = document.documentElement;
+
+function applyTheme() {
+  const t = THEMES[state.theme];
+  for (const [v, key] of Object.entries(VARS)) {
+    const val = t[key] || (key === 'bright_foreground' ? t.foreground : key === 'darker_background' ? t.background : key === 'orange' ? t.yellow : null);
+    if (val) root.style.setProperty('--' + v, val);
+  }
+  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.k === state.theme));
+}
+
+function buildChips() {
+  document.getElementById('chips').innerHTML = ORDER.map(k => {
+    const t = THEMES[k];
+    return `<button class="chip" data-k="${k}" style="--c1:${t.background};--c2:${t.accent};--c3:${t.foreground}"><i></i><i></i><i></i>${label(k)}${k === 'tokyo-night' ? ' <em>(yours)</em>' : ''}</button>`;
+  }).join('');
+  document.getElementById('chips').addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    state.theme = b.dataset.k; store.set('theme', state.theme); applyTheme();
+  });
+}
+
+function buildGrid() {
+  document.getElementById('grid').innerHTML = FACES.map((f, i) => `
+    <section class="card">
+      <div class="watch">
+        <div class="case"></div>
+        <div class="btn" style="left:-6px;top:118px"></div><div class="btn" style="left:-6px;top:212px"></div><div class="btn" style="left:-6px;top:306px"></div>
+        <div class="btn" style="right:-6px;top:140px"></div><div class="btn" style="right:-6px;top:286px"></div>
+        <div class="bezel"></div>
+        <div class="screen" data-i="${i}"></div>
+      </div>
+      <h2><span>${String.fromCharCode(65 + i)}.</span> ${f.name}</h2>
+      <p>${f.note}</p>
+    </section>`).join('');
+}
+
+function render() {
+  const d = data();
+  document.querySelectorAll('.screen').forEach(el => {
+    const f = FACES[+el.dataset.i];
+    el.classList.toggle('aod', state.aod);
+    el.innerHTML = state.aod ? f.aod(d) : f.render(d);
+  });
+}
+
+function fitZoom() {
+  root.style.setProperty('--z', state.zoom);
+  const card = document.querySelector('.card');
+  const maxZ = card ? (card.clientWidth - 32) / 470 : state.zoom;
+  document.querySelectorAll('.watch').forEach(w => w.style.setProperty('--zz', Math.min(state.zoom, maxZ)));
+}
+
+buildChips();
+buildGrid();
+applyTheme();
+const aodBtn = document.getElementById('aod'), live = document.getElementById('live'), zoom = document.getElementById('zoom');
+aodBtn.setAttribute('aria-pressed', state.aod);
+live.checked = state.live;
+zoom.value = state.zoom;
+aodBtn.onclick = () => { state.aod = !state.aod; store.set('aod', state.aod); aodBtn.setAttribute('aria-pressed', state.aod); render(); };
+live.onchange = () => { state.live = live.checked; store.set('live', state.live); render(); };
+zoom.oninput = () => { state.zoom = +zoom.value; store.set('zoom', state.zoom); fitZoom(); };
+window.addEventListener('resize', fitZoom);
+render();
+fitZoom();
+setInterval(() => { if (state.live) render(); }, 1000);
+</script>
+</body>
+</html>

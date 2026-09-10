@@ -1,0 +1,8 @@
+# Signing key: never publish this
+developer_key
+developer_key.pem
+*.der
+
+bin/
+sdk/
+tools/.venv/
