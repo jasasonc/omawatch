@@ -107,6 +107,13 @@ module Data {
         if (loc == null && act != null && act.currentLocation != null) {
             loc = valid(act.currentLocation as Position.Location);
         }
+        if (loc == null && (Toybox has :Position)) {
+            // The last known fix. This does not switch the GPS on.
+            var pi = Position.getInfo();
+            if (pi != null && pi.position != null) {
+                loc = valid(pi.position as Position.Location);
+            }
+        }
         if (loc != null) {
             Storage.setValue("loc", (loc as Position.Location).toDegrees());
         } else {
