@@ -97,22 +97,23 @@ module Data {
         var cc = Toybox.Weather.getCurrentConditions();
         if (cc != null && cc.temperature != null) { temp = (cc.temperature as Numeric).toNumber(); }
 
-        // Sunrise and sunset need a position. The weather station is the best
-        // one, because the phone syncs it. Some watches give 0,0 instead of
-        // "no position", so every position is checked before it is used.
+        // Sunrise and sunset need a position. The watch's own last fix comes
+        // first, then an activity fix, then the weather station, which can be
+        // far away. Some watches give 0,0 instead of "no position", so every
+        // position is checked before it is used.
         var loc = null;
-        if (cc != null && cc.observationLocationPosition != null) {
-            loc = valid(cc.observationLocationPosition as Position.Location);
-        }
-        if (loc == null && act != null && act.currentLocation != null) {
-            loc = valid(act.currentLocation as Position.Location);
-        }
-        if (loc == null && (Toybox has :Position)) {
+        if (Toybox has :Position) {
             // The last known fix. This does not switch the GPS on.
             var pi = Position.getInfo();
             if (pi != null && pi.position != null) {
                 loc = valid(pi.position as Position.Location);
             }
+        }
+        if (loc == null && act != null && act.currentLocation != null) {
+            loc = valid(act.currentLocation as Position.Location);
+        }
+        if (loc == null && cc != null && cc.observationLocationPosition != null) {
+            loc = valid(cc.observationLocationPosition as Position.Location);
         }
         if (loc != null) {
             Storage.setValue("loc", (loc as Position.Location).toDegrees());
