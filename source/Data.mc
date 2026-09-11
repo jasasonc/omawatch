@@ -97,24 +97,26 @@ module Data {
         var cc = Toybox.Weather.getCurrentConditions();
         if (cc != null && cc.temperature != null) { temp = (cc.temperature as Numeric).toNumber(); }
 
-        // Sunrise and sunset need a position. Use the last activity fix, else the
-        // weather station, else the position saved the last time one was known.
+        // Sunrise and sunset need a position. The weather station is the best
+        // one, because the phone syncs it. Some watches give 0,0 instead of
+        // "no position", so every position is checked before it is used.
         var loc = null;
-        if (act != null && act.currentLocation != null) {
-            loc = act.currentLocation;
-        } else if (cc != null && cc.observationLocationPosition != null) {
-            loc = cc.observationLocationPosition;
+        if (cc != null && cc.observationLocationPosition != null) {
+            loc = valid(cc.observationLocationPosition as Position.Location);
+        }
+        if (loc == null && act != null && act.currentLocation != null) {
+            loc = valid(act.currentLocation as Position.Location);
         }
         if (loc != null) {
             Storage.setValue("loc", (loc as Position.Location).toDegrees());
         } else {
             var saved = Storage.getValue("loc");
             if (saved instanceof Array && saved.size() == 2) {
-                loc = new Position.Location({
+                loc = valid(new Position.Location({
                     :latitude => saved[0] as Double,
                     :longitude => saved[1] as Double,
                     :format => :degrees
-                });
+                }));
             }
         }
         if (loc == null) { return; }
@@ -124,17 +126,31 @@ module Data {
         var set = Toybox.Weather.getSunset(loc as Position.Location, now);
         if (rise == null || set == null) { return; }
 
+        // A day must be longer than 4 hours and shorter than 22 hours. Outside
+        // that, the position is wrong and the times are not shown.
+        var total = (set as Time.Moment).value() - (rise as Time.Moment).value();
+        if (total < 4 * 3600 || total > 22 * 3600) { return; }
+
         sunriseText = clock(rise as Time.Moment);
         sunsetText = clock(set as Time.Moment);
 
-        var total = (set as Time.Moment).value() - (rise as Time.Moment).value();
-        if (total > 0) {
-            var done = now.value() - (rise as Time.Moment).value();
-            var f = done.toFloat() / total.toFloat();
-            if (f < 0.0) { f = 0.0; }
-            if (f > 1.0) { f = 1.0; }
-            sunFraction = f;
-        }
+        var done = now.value() - (rise as Time.Moment).value();
+        var f = done.toFloat() / total.toFloat();
+        if (f < 0.0) { f = 0.0; }
+        if (f > 1.0) { f = 1.0; }
+        sunFraction = f;
+    }
+
+    // Null for a position that cannot be real: the middle of the ocean at 0,0,
+    // the 180,180 some watches return, or values out of range.
+    function valid(loc as Position.Location or Null) as Position.Location or Null {
+        if (loc == null) { return null; }
+        var d = loc.toDegrees();
+        var lat = (d[0] as Double).toFloat();
+        var lon = (d[1] as Double).toFloat();
+        if (lat > 90.0 || lat < -90.0 || lon > 180.0 || lon < -180.0) { return null; }
+        if (lat > -0.5 && lat < 0.5 && lon > -0.5 && lon < 0.5) { return null; }
+        return loc;
     }
 
     function clock(m as Time.Moment) as String {
