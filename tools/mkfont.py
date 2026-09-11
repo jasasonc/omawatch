@@ -201,6 +201,11 @@ def render_glyphs(font, char_list, pad):
 
         left, top, right, bottom = bbox
         glyph_img = canvas.crop(bbox)
+        xadv = round(advance) if advance else (right - left)
+        # Nerd Font icons are wider than one monospace cell. Connect IQ cuts a
+        # glyph at its advance, so give icons an advance that covers the ink.
+        if 0xE000 <= cp <= 0xF8FF:
+            xadv = max(xadv, (left - pen_x) + (right - left) + 1)
         glyphs.append(
             dict(
                 cp=cp,
@@ -209,7 +214,7 @@ def render_glyphs(font, char_list, pad):
                 h=bottom - top,
                 xoff=left - pen_x,
                 yoff=top - pad,
-                xadv=round(advance) if advance else (right - left),
+                xadv=xadv,
             )
         )
 
