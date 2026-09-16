@@ -11,9 +11,11 @@ class OmaWatchView extends WatchUi.WatchFace {
     const AOD_SHIFT = 4;
 
     private var mLowPower as Boolean = false;
-    // Flipped on every awake redraw, so the cursor never shows the same state twice
-    // in a row, even when the watch draws a little early or late.
+    // The cursor flips when at least 0.8 s passed since the last flip. A late
+    // redraw still flips, and the quick redraws right after waking do not.
     private var mCursorOn as Boolean = true;
+    private var mLastFlip as Number = 0;
+    const BLINK_MS = 800;
 
     function initialize() {
         WatchFace.initialize();
@@ -41,7 +43,11 @@ class OmaWatchView extends WatchUi.WatchFace {
         } else if (Theme.layout == 1) {
             LayoutWaybar.draw(dc);
         } else {
-            mCursorOn = !mCursorOn;
+            var now = System.getTimer();
+            if (now - mLastFlip >= BLINK_MS) {
+                mCursorOn = !mCursorOn;
+                mLastFlip = now;
+            }
             LayoutNeovim.draw(dc, mCursorOn);
         }
     }
