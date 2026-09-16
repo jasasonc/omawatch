@@ -6,13 +6,18 @@ import Toybox.Application;
 // entry of this face. Buttons only, no touch needed.
 module SettingsMenu {
 
-    const VALUES = ["Heart rate", "Body battery", "Elevation", "Steps", "Temperature", "Watch battery", "Floors", "Stress"];
+    const VALUES = ["Heart rate", "Body battery", "Elevation", "Steps", "Temperature", "Watch battery", "Floors", "Stress",
+                    "Step goal %", "Steps / goal", "Floors / goal", "Active min / goal"];
     const LAYOUTS = ["Neovim", "Waybar"];
+    const TOP_BARS = ["Daylight", "Step goal", "Floors goal", "Active minutes", "Body battery", "Watch battery", "Day", "Off"];
+    const TEMP_UNITS = ["Watch setting", "Celsius", "Fahrenheit"];
 
     function main() as [WatchUi.Views, WatchUi.InputDelegates] {
         var menu = new WatchUi.Menu2({ :title => "OmaWatch" });
         menu.addItem(new WatchUi.MenuItem("Theme", Palettes.NAMES[Theme.themeIndex], :theme, null));
         menu.addItem(new WatchUi.MenuItem("Layout", LAYOUTS[Theme.layout], :layout, null));
+        menu.addItem(new WatchUi.MenuItem("Top bar", TOP_BARS[Theme.topBar], :topbar, null));
+        menu.addItem(new WatchUi.MenuItem("Temperature", TEMP_UNITS[Theme.tempUnit], :tempunit, null));
         menu.addItem(new WatchUi.MenuItem("Row 1", VALUES[Theme.slots[0]], :slot1, null));
         menu.addItem(new WatchUi.MenuItem("Row 2", VALUES[Theme.slots[1]], :slot2, null));
         menu.addItem(new WatchUi.MenuItem("Row 3", VALUES[Theme.slots[2]], :slot3, null));
@@ -39,6 +44,10 @@ class MainDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId();
         if (id == :theme) {
             SettingsMenu.picker("Theme", Palettes.NAMES, "Theme", item);
+        } else if (id == :topbar) {
+            SettingsMenu.picker("Top bar", SettingsMenu.TOP_BARS, "TopBar", item);
+        } else if (id == :tempunit) {
+            SettingsMenu.picker("Temperature", SettingsMenu.TEMP_UNITS, "TempUnit", item);
         } else if (id == :layout) {
             SettingsMenu.picker("Layout", SettingsMenu.LAYOUTS, "Layout", item);
         } else if (id == :slot1) {

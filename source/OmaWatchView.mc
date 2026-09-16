@@ -52,12 +52,13 @@ class OmaWatchView extends WatchUi.WatchFace {
 
         Draw.text(dc, cx, cy, Fonts.big, AOD_COLOUR, Clock.timeText(), Graphics.TEXT_JUSTIFY_CENTER);
 
-        if (Data.sunFraction >= 0.0) {
+        var f = Data.barFraction(Theme.topBar);
+        if (Theme.topBar != 7 && f >= 0.0) {
             var w = Draw.p(160);
             var y = cy - Draw.p(90);
             dc.setColor(AOD_COLOUR, Graphics.COLOR_TRANSPARENT);
             dc.setPenWidth(1);
-            var px = cx - w / 2 + (w * Data.sunFraction).toNumber();
+            var px = cx - w / 2 + (w * f).toNumber();
             dc.drawLine(cx - w / 2, y, px, y);
         }
     }

@@ -16,7 +16,8 @@ module LayoutWaybar {
 
         workspaces(dc, cx, Draw.p(40));
 
-        var t = Data.temp == null ? "--" : Data.temp.toString();
+        var tv = Data.tempValue();
+        var t = tv == null ? "--" : tv.toString();
         var barY = Draw.p(68);
         Draw.text(dc, Draw.p(74), barY, Fonts.row, Theme.c(Theme.YELLOW), Draw.iconSun(), Graphics.TEXT_JUSTIFY_LEFT);
         Draw.text(dc, Draw.p(96), barY, Fonts.row, Theme.c(Theme.FG), t + "°", Graphics.TEXT_JUSTIFY_LEFT);
@@ -24,10 +25,12 @@ module LayoutWaybar {
         Draw.text(dc, w - Draw.p(96), barY, Fonts.row, Theme.c(Theme.FG), Data.bat.toString() + "%", Graphics.TEXT_JUSTIFY_RIGHT);
         Draw.text(dc, w - Draw.p(92), barY, Fonts.row, Theme.c(Theme.FG), Draw.iconBattery(), Graphics.TEXT_JUSTIFY_LEFT);
 
-        daylight(dc, w, barH);
+        barEdge(dc, w, barH);
 
-        Draw.text(dc, Draw.p(34), Draw.p(110), Fonts.small, Theme.c(Theme.YELLOW), Data.sunriseText, Graphics.TEXT_JUSTIFY_LEFT);
-        Draw.text(dc, w - Draw.p(34), Draw.p(110), Fonts.small, Theme.c(Theme.DFG), Data.sunsetText, Graphics.TEXT_JUSTIFY_RIGHT);
+        if (Theme.topBar != 7) {
+            Draw.text(dc, Draw.p(34), Draw.p(112), Fonts.small, Theme.c(Theme.YELLOW), Data.barLeft(Theme.topBar), Graphics.TEXT_JUSTIFY_LEFT);
+            Draw.text(dc, w - Draw.p(34), Draw.p(112), Fonts.small, Theme.c(Theme.DFG), Data.barRight(Theme.topBar), Graphics.TEXT_JUSTIFY_RIGHT);
+        }
 
         Draw.text(dc, cx, Draw.p(172), Fonts.big, Theme.c(Theme.BFG), Clock.timeText(), Graphics.TEXT_JUSTIFY_CENTER);
 
@@ -67,15 +70,17 @@ module LayoutWaybar {
         }
     }
 
-    function daylight(dc as Dc, w as Number, barH as Number) as Void {
+    // The bottom edge of the bar fills with the value chosen for the top bar.
+    function barEdge(dc as Dc, w as Number, barH as Number) as Void {
         dc.setPenWidth(Draw.p(2));
         dc.setColor(Theme.c(Theme.SEL), Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, barH, w, barH);
 
-        if (Data.sunFraction < 0.0) { return; }
+        var f = Data.barFraction(Theme.topBar);
+        if (Theme.topBar == 7 || f < 0.0) { return; }
         var x0 = Draw.p(24);
         var x1 = w - Draw.p(24);
-        var px = x0 + ((x1 - x0) * Data.sunFraction).toNumber();
+        var px = x0 + ((x1 - x0) * f).toNumber();
         dc.setPenWidth(Draw.p(4));
         dc.setColor(Theme.c(Theme.YELLOW), Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, barH, px, barH);

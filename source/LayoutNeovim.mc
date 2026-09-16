@@ -13,8 +13,8 @@ module LayoutNeovim {
         var bandH = Draw.p(80);
         var timeX = Draw.p(74);
 
-        Draw.sunLine(dc, cx, Draw.p(42), Draw.p(196), Fonts.small, false);
-        Draw.text(dc, cx, Draw.p(64), Fonts.small, Theme.c(Theme.MUTED), "-- " + Clock.dateText(true), Graphics.TEXT_JUSTIFY_CENTER);
+        Draw.topBar(dc, cx, Draw.p(40), Draw.p(232), Fonts.small, false);
+        Draw.text(dc, cx, Draw.p(64), Fonts.row, Theme.c(Theme.MUTED), "-- " + Clock.dateText(true), Graphics.TEXT_JUSTIFY_CENTER);
 
         row(dc, 2, Draw.p(90), rowX, 0);
         row(dc, 1, Draw.p(112), rowX, 1);
@@ -56,7 +56,8 @@ module LayoutNeovim {
 
     // Temperature and battery with their icons, no bar around them.
     function statusLine(dc as Dc, cx as Number, y as Number) as Void {
-        var t = Data.temp == null ? "--" : Data.temp.toString();
+        var tv = Data.tempValue();
+        var t = tv == null ? "--" : tv.toString();
 
         Draw.text(dc, cx - Draw.p(86), y, Fonts.row, Theme.c(Theme.YELLOW), Draw.iconSun(), Graphics.TEXT_JUSTIFY_LEFT);
         Draw.text(dc, cx - Draw.p(64), y, Fonts.row, Theme.c(Theme.FG), t + "°", Graphics.TEXT_JUSTIFY_LEFT);

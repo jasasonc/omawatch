@@ -34,6 +34,27 @@
         </settingConfig>
     </setting>
 
+    <setting propertyKey="@Properties.TopBar" title="@Strings.TopBarTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.TopBar0</listEntry>
+            <listEntry value="1">@Strings.TopBar1</listEntry>
+            <listEntry value="2">@Strings.TopBar2</listEntry>
+            <listEntry value="3">@Strings.TopBar3</listEntry>
+            <listEntry value="4">@Strings.TopBar4</listEntry>
+            <listEntry value="5">@Strings.TopBar5</listEntry>
+            <listEntry value="6">@Strings.TopBar6</listEntry>
+            <listEntry value="7">@Strings.TopBar7</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.TempUnit" title="@Strings.TempUnitTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.TempUnit0</listEntry>
+            <listEntry value="1">@Strings.TempUnit1</listEntry>
+            <listEntry value="2">@Strings.TempUnit2</listEntry>
+        </settingConfig>
+    </setting>
+
     <setting propertyKey="@Properties.Slot1" title="@Strings.Slot1Title">
         <settingConfig type="list">
             <listEntry value="0">@Strings.ValueHr</listEntry>
@@ -44,6 +65,10 @@
             <listEntry value="5">@Strings.ValueBat</listEntry>
             <listEntry value="6">@Strings.ValueFloors</listEntry>
             <listEntry value="7">@Strings.ValueStress</listEntry>
+            <listEntry value="8">@Strings.ValueStepGoalPct</listEntry>
+            <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
+            <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
+            <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
         </settingConfig>
     </setting>
 
@@ -57,6 +82,10 @@
             <listEntry value="5">@Strings.ValueBat</listEntry>
             <listEntry value="6">@Strings.ValueFloors</listEntry>
             <listEntry value="7">@Strings.ValueStress</listEntry>
+            <listEntry value="8">@Strings.ValueStepGoalPct</listEntry>
+            <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
+            <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
+            <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
         </settingConfig>
     </setting>
 
@@ -70,6 +99,10 @@
             <listEntry value="5">@Strings.ValueBat</listEntry>
             <listEntry value="6">@Strings.ValueFloors</listEntry>
             <listEntry value="7">@Strings.ValueStress</listEntry>
+            <listEntry value="8">@Strings.ValueStepGoalPct</listEntry>
+            <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
+            <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
+            <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
         </settingConfig>
     </setting>
 
@@ -83,6 +116,10 @@
             <listEntry value="5">@Strings.ValueBat</listEntry>
             <listEntry value="6">@Strings.ValueFloors</listEntry>
             <listEntry value="7">@Strings.ValueStress</listEntry>
+            <listEntry value="8">@Strings.ValueStepGoalPct</listEntry>
+            <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
+            <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
+            <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
         </settingConfig>
     </setting>
 

@@ -44,5 +44,24 @@
     <string id="ValueBat">Watch battery</string>
     <string id="ValueFloors">Floors</string>
     <string id="ValueStress">Stress</string>
+    <string id="ValueStepGoalPct">Step goal %</string>
+    <string id="ValueStepsGoal">Steps / goal</string>
+    <string id="ValueFloorsGoal">Floors / goal</string>
+    <string id="ValueActiveGoal">Active minutes / goal</string>
+
+    <string id="TopBarTitle">Top bar</string>
+    <string id="TopBar0">Daylight</string>
+    <string id="TopBar1">Step goal</string>
+    <string id="TopBar2">Floors goal</string>
+    <string id="TopBar3">Active minutes</string>
+    <string id="TopBar4">Body battery</string>
+    <string id="TopBar5">Watch battery</string>
+    <string id="TopBar6">Day</string>
+    <string id="TopBar7">Off</string>
+
+    <string id="TempUnitTitle">Temperature</string>
+    <string id="TempUnit0">Watch setting</string>
+    <string id="TempUnit1">Celsius</string>
+    <string id="TempUnit2">Fahrenheit</string>
 
 </strings>
