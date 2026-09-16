@@ -11,6 +11,9 @@ class OmaWatchView extends WatchUi.WatchFace {
     const AOD_SHIFT = 4;
 
     private var mLowPower as Boolean = false;
+    // Flipped on every awake redraw, so the cursor never shows the same state twice
+    // in a row, even when the watch draws a little early or late.
+    private var mCursorOn as Boolean = true;
 
     function initialize() {
         WatchFace.initialize();
@@ -38,8 +41,8 @@ class OmaWatchView extends WatchUi.WatchFace {
         } else if (Theme.layout == 1) {
             LayoutWaybar.draw(dc);
         } else {
-            // The cursor blinks once a second, like a terminal.
-            LayoutNeovim.draw(dc, System.getClockTime().sec % 2 == 0);
+            mCursorOn = !mCursorOn;
+            LayoutNeovim.draw(dc, mCursorOn);
         }
     }
 
