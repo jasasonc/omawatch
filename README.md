@@ -10,15 +10,18 @@ code-editor look, and the colour schemes of the Omarchy desktop.
 - **Neovim.** Your values as code rows (`hr = 54`) around a cursor line that
   holds the time. A heart rate graph in a box at the bottom, like btop.
 - **Waybar.** A bar across the top with the weekday as workspace numbers.
-  The bottom edge of the bar fills from sunrise to sunset.
+  The bottom edge of the bar fills with the value you choose for the top bar.
 
 ## Features
 
 - 22 colour schemes: Tokyo Night, Catppuccin, Gruvbox, Everforest, Nord and
   more.
 - Four rows you can set: heart rate, body battery, elevation, steps,
-  temperature, watch battery, floors, stress.
-- Sunrise and sunset line with the current position of the sun.
+  temperature, watch battery, floors, stress, step goal percentage, steps with
+  the goal, floors with the goal, active minutes with the weekly goal.
+- A top bar you can set: daylight from sunrise to sunset, step goal, floors
+  goal, active minutes, body battery, watch battery, the day, or off.
+- Temperature in the unit of the watch, or always in Celsius or Fahrenheit.
 - Heart rate graph of the last hours.
 - Always-on mode with dim digits that move every minute.
 - Settings on the watch itself: hold MENU on the face and open its settings.
