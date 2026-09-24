@@ -37,10 +37,12 @@ module LayoutWaybar {
         var left = cx - Draw.p(142);
         var right = cx + Draw.p(22);
         var eq = Draw.p(56);
-        rowAt(dc, left, Draw.p(236), eq, 0);
-        rowAt(dc, right, Draw.p(236), eq, 1);
-        rowAt(dc, left, Draw.p(258), eq, 2);
-        rowAt(dc, right, Draw.p(258), eq, 3);
+        var top = Draw.p(236);
+        var gap = Draw.rowGap();
+        rowAt(dc, left, top, eq, 0);
+        rowAt(dc, right, top, eq, 1);
+        rowAt(dc, left, top + gap, eq, 2);
+        rowAt(dc, right, top + gap, eq, 3);
 
         var boxY = Draw.p(288);
         var boxH = Draw.p(50);

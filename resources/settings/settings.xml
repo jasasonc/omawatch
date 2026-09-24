@@ -62,6 +62,13 @@
         </settingConfig>
     </setting>
 
+    <setting propertyKey="@Properties.TextSize" title="@Strings.TextSizeTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.TextSize0</listEntry>
+            <listEntry value="1">@Strings.TextSize1</listEntry>
+        </settingConfig>
+    </setting>
+
     <setting propertyKey="@Properties.TempUnit" title="@Strings.TempUnitTitle">
         <settingConfig type="list">
             <listEntry value="0">@Strings.TempUnit0</listEntry>

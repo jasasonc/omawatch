@@ -6,6 +6,7 @@
     <property id="Graph" type="number">0</property>
     <property id="TempUnit" type="number">0</property>
     <property id="DistUnit" type="number">0</property>
+    <property id="TextSize" type="number">0</property>
 
     <property id="Slot1" type="number">0</property>
     <property id="Slot2" type="number">1</property>

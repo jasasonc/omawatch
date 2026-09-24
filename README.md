@@ -28,6 +28,7 @@ code-editor look, and the colour schemes of the Omarchy desktop.
   score, pulse ox, or off.
 - Temperature in the unit of the watch, or always in Celsius or Fahrenheit.
   Distance in the unit of the watch, or always in kilometres or miles.
+- Two text sizes, normal and large.
 - A graph of the last hours, from heart rate, body battery, elevation,
   pressure, stress, pulse ox or temperature.
 - Always-on mode with dim digits that move every minute.
@@ -88,8 +89,9 @@ The face uses JetBrains Mono, converted to bitmap fonts with
 tools/genfonts.sh
 ```
 
-The row and small fonts hold the Latin, Greek and Cyrillic alphabets, 431
-glyphs each. The watch gives the date in its own language, and a letter that
+There are two sizes of the text fonts, for the text size setting. Only the
+pair the watch needs is loaded. The row and small fonts hold the Latin, Greek
+and Cyrillic alphabets, 431 glyphs each. The watch gives the date in its own language, and a letter that
 is not in the font is drawn as nothing, so the fonts must cover every
 language the watch can be set to. The big font shows the time, so it holds
 only the digits and a colon.

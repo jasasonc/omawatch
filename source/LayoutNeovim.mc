@@ -16,8 +16,10 @@ module LayoutNeovim {
         Draw.topBar(dc, cx, Draw.p(40), Draw.p(232), Fonts.small, false);
         Draw.text(dc, cx, Draw.p(64), Fonts.row, Theme.c(Theme.MUTED), "-- " + Clock.dateText(true), Graphics.TEXT_JUSTIFY_CENTER);
 
-        row(dc, 2, Draw.p(90), rowX, 0);
-        row(dc, 1, Draw.p(112), rowX, 1);
+        var gap = Draw.rowGap();
+        var above = bandY - Draw.p(20);
+        row(dc, 2, above - gap, rowX, 0);
+        row(dc, 1, above, rowX, 1);
 
         // Cursor line
         dc.setColor(Theme.c(Theme.LBG), Graphics.COLOR_TRANSPARENT);
@@ -32,8 +34,9 @@ module LayoutNeovim {
             dc.fillRectangle(cur, bandY + Draw.p(14), Draw.p(22), bandH - Draw.p(28));
         }
 
-        row(dc, 1, Draw.p(228), rowX, 2);
-        row(dc, 2, Draw.p(250), rowX, 3);
+        var below = bandY + bandH + Draw.p(16);
+        row(dc, 1, below, rowX, 2);
+        row(dc, 2, below + gap, rowX, 3);
 
         var boxY = Draw.p(278);
         var boxH = Draw.p(52);

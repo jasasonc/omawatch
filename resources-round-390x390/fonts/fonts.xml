@@ -2,4 +2,6 @@
     <font id="JbmBig" filename="jbmbig.fnt" antialias="true" />
     <font id="JbmRow" filename="jbmrow.fnt" antialias="true" />
     <font id="JbmSmall" filename="jbmsmall.fnt" antialias="true" />
+    <font id="JbmRowL" filename="jbmrowl.fnt" antialias="true" />
+    <font id="JbmSmallL" filename="jbmsmalll.fnt" antialias="true" />
 </fonts>

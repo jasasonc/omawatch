@@ -32,6 +32,7 @@ module SettingsMenu {
     const TOP_BARS = ["Daylight", "Step goal", "Floors goal", "Active minutes", "Body battery", "Watch battery", "Day", "Off",
                       "Stress", "Sleep score", "Pulse ox"];
     const GRAPHS = ["Heart rate", "Body battery", "Elevation", "Pressure", "Stress", "Pulse ox", "Temperature"];
+    const TEXT_SIZES = ["Normal", "Large"];
     const TEMP_UNITS = ["Watch setting", "Celsius", "Fahrenheit"];
     const DIST_UNITS = ["Watch setting", "Kilometres", "Miles"];
 
@@ -41,6 +42,7 @@ module SettingsMenu {
         menu.addItem(new WatchUi.MenuItem("Layout", LAYOUTS[Theme.layout], :layout, null));
         menu.addItem(new WatchUi.MenuItem("Top bar", TOP_BARS[Theme.topBar], :topbar, null));
         menu.addItem(new WatchUi.MenuItem("Graph", GRAPHS[Theme.graph], :graph, null));
+        menu.addItem(new WatchUi.MenuItem("Text size", TEXT_SIZES[Theme.textSize], :textsize, null));
         menu.addItem(new WatchUi.MenuItem("Temperature", TEMP_UNITS[Theme.tempUnit], :tempunit, null));
         menu.addItem(new WatchUi.MenuItem("Distance", DIST_UNITS[Theme.distUnit], :distunit, null));
         menu.addItem(new WatchUi.MenuItem("Row 1", VALUES[Theme.slots[0]], :slot1, null));
@@ -83,6 +85,8 @@ class MainDelegate extends WatchUi.Menu2InputDelegate {
             SettingsMenu.picker("Top bar", SettingsMenu.TOP_BARS, "TopBar", item);
         } else if (id == :graph) {
             SettingsMenu.picker("Graph", SettingsMenu.GRAPHS, "Graph", item);
+        } else if (id == :textsize) {
+            SettingsMenu.picker("Text size", SettingsMenu.TEXT_SIZES, "TextSize", item);
         } else if (id == :tempunit) {
             SettingsMenu.picker("Temperature", SettingsMenu.TEMP_UNITS, "TempUnit", item);
         } else if (id == :distunit) {
@@ -146,6 +150,7 @@ class PickDelegate extends WatchUi.Menu2InputDelegate {
         var value = item.getId() as Number;
         Properties.setValue(mKey, value);
         Theme.load();
+        Fonts.load();
         mItem.setSubLabel(mNames[value]);
         WatchUi.requestUpdate();
         for (var i = 0; i < mDepth; i++) {

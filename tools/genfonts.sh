@@ -29,7 +29,9 @@ sys.stdout.write("".join(out) + "".join(extra))
 PY
 )
 
-gen() {  # gen <size-dir> <big> <row> <small>
+# gen <size-dir> <big> <row> <small> <row-large> <small-large>
+# The large pair is the "Large" text size setting, about 18% bigger.
+gen() {
     local dir="$repo/resources-round-${1}x${1}/fonts"
     "$py" "$here/mkfont.py" --ttf "$ttf" --size "$2" --out "$dir" --name jbmbig \
         --bold --chars "0123456789: "
@@ -37,10 +39,14 @@ gen() {  # gen <size-dir> <big> <row> <small>
         --chars "$text_chars" --extra-codepoints "$icons"
     "$py" "$here/mkfont.py" --ttf "$ttf" --size "$4" --out "$dir" --name jbmsmall \
         --chars "$text_chars" --extra-codepoints "$icons"
+    "$py" "$here/mkfont.py" --ttf "$ttf" --size "$5" --out "$dir" --name jbmrowl \
+        --chars "$text_chars" --extra-codepoints "$icons"
+    "$py" "$here/mkfont.py" --ttf "$ttf" --size "$6" --out "$dir" --name jbmsmalll \
+        --chars "$text_chars" --extra-codepoints "$icons"
 }
 
-gen 360 78 16 12
-gen 390 84 17 13
-gen 416 90 18 14
-gen 454 98 20 15
-gen 466 100 20 16
+gen 360 78 16 12 19 14
+gen 390 84 17 13 20 15
+gen 416 90 18 14 21 16
+gen 454 98 20 15 24 18
+gen 466 100 20 16 24 19

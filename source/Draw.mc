@@ -16,6 +16,11 @@ module Draw {
         return (v * scale + 0.5).toNumber();
     }
 
+    // The space between two code rows. Large text needs more of it.
+    function rowGap() as Number {
+        return p(Theme.textSize == 1 ? 26 : 22);
+    }
+
     // Nerd Font icons, built from their code points because Monkey C has no
     // unicode escapes.
     function iconSun() as String { return (0xe30d as Number).toChar().toString(); }

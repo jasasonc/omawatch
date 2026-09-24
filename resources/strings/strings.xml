@@ -95,6 +95,10 @@
     <string id="TempUnit1">Celsius</string>
     <string id="TempUnit2">Fahrenheit</string>
 
+    <string id="TextSizeTitle">Text size</string>
+    <string id="TextSize0">Normal</string>
+    <string id="TextSize1">Large</string>
+
     <string id="DistUnitTitle">Distance</string>
     <string id="DistUnit0">Watch setting</string>
     <string id="DistUnit1">Kilometres</string>

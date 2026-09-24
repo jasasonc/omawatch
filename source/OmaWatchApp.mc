@@ -26,6 +26,8 @@ class OmaWatchApp extends Application.AppBase {
 
     function onSettingsChanged() as Void {
         Theme.load();
+        // The text size picks a different font, so the fonts are loaded again.
+        Fonts.load();
         WatchUi.requestUpdate();
     }
 }

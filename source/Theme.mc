@@ -18,6 +18,7 @@ module Theme {
     var tempUnit as Number = 0;
     var distUnit as Number = 0;
     var graph as Number = 0;
+    var textSize as Number = 0;
 
     function load() as Void {
         themeIndex = Cfg.THEME >= 0 ? Cfg.THEME : num("Theme", 0);
@@ -36,6 +37,8 @@ module Theme {
         if (distUnit < 0 || distUnit > 2) { distUnit = 0; }
         graph = num("Graph", 0);
         if (graph < 0 || graph > 6) { graph = 0; }
+        textSize = num("TextSize", 0);
+        if (textSize < 0 || textSize > 1) { textSize = 0; }
     }
 
     function num(key as String, fallback as Number) as Number {
