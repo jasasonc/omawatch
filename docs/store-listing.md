@@ -22,31 +22,31 @@ A watch face in the style of a tiling Linux desktop. Your data reads like code, 
 
 Two layouts, switchable at any time:
 
-- Neovim: your values as code rows, for example "hr = 54", around a highlighted cursor line that holds the time. A heart rate graph in a box at the bottom.
-- Waybar: a bar across the top with the weekday as workspace numbers, the date, the temperature and the watch battery. The bottom edge of the bar fills from sunrise to sunset, and a dot marks the time of day.
+- Neovim: your values as code rows, "hr = 54", around a highlighted cursor line that holds the time. A graph in a box at the bottom.
+- Waybar: a bar across the top with the weekday as workspace numbers, the date, the temperature and the battery.
 
 What you get:
 
-- 22 colour schemes, among them Tokyo Night, Catppuccin, Gruvbox, Everforest and Nord.
-- Four rows you set yourself: heart rate, body battery, elevation, steps, temperature, watch battery, floors or stress.
-- A sunrise to sunset line that shows how much daylight is left.
-- A heart rate graph of the last hours.
-- An always-on mode with dim digits that move every minute, to protect the screen.
-- Settings on the watch. Hold MENU on the face and open the settings of the face. You do not need the phone.
+- 22 colour schemes: Tokyo Night, Catppuccin, Gruvbox, Everforest, Nord and more.
+- Four rows from 31 values: heart rate, body battery, elevation, steps, temperature, watch battery, floors, stress, calories, pulse ox, respiration, sleep score, recovery, VO2 max, weekly run and bike distance, pressure, race time predictions, humidity, wind and rain chance.
+- A top bar you set: daylight from sunrise to sunset, a goal, body battery, stress, sleep score or the day.
+- A graph of the last hours, from heart rate, body battery, elevation, pressure, stress, pulse ox or temperature.
+- Two text sizes. Celsius or Fahrenheit, kilometres or miles.
+- Always-on mode with dim digits that move every minute.
+- Settings on the watch. Hold MENU on the face and open its settings. No phone needed.
 
-Before you rate it, please read this:
+Good to know: the temperature, the weather values and the sunrise and sunset times come from Garmin's weather data, so they stay empty until your phone syncs. VO2 max, the weekly distances, the race times and the sleep score stay empty until the watch has enough data for them. Elevation and pressure need a watch with a barometer.
 
-- The temperature and the sunrise and sunset times come from Garmin's weather data. The watch gets that from your phone, so these fields stay empty until the first sync after you install the face.
-- Elevation comes from the barometer of the watch. On watches without one, the row shows two dashes.
-- Body battery, stress and floors show data only if your watch records them.
+Privacy: the face reads your watch data only to draw the screen. Nothing is stored or sent anywhere.
 
-Privacy: the face reads heart rate history, body battery, steps, altitude and the last known position of the watch, and uses them only to draw the screen. Nothing is stored or sent anywhere.
+Free and open source: github.com/jasasonc/omawatch
 
-OmaWatch is not connected to Garmin. It is also not connected to the Omarchy desktop project, it only follows its look.
+OmaWatch is not connected to Garmin, and not connected to the Omarchy project. It only follows its look.
 
-## What's new (version 1.0.0)
+## What's new (version 1.3.0)
 
-First release.
+See `marketing/` for the text of the last release. Version 1.3.0 went live on
+2026-09-24.
 
 ## Screenshots to upload
 
