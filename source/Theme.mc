@@ -25,7 +25,8 @@ module Theme {
         if (themeIndex < 0 || themeIndex >= Palettes.COLOURS.size()) { themeIndex = 0; }
         layout = num("Layout", Cfg.LAYOUT);
         if (layout < 0) { layout = Cfg.LAYOUT; }
-        slots = [num("Slot1", 0), num("Slot2", 1), num("Slot3", 2), num("Slot4", 3)];
+        slots = Cfg.SLOTS.size() == 4 ? Cfg.SLOTS
+                                      : [num("Slot1", 0), num("Slot2", 1), num("Slot3", 2), num("Slot4", 3)];
         for (var i = 0; i < slots.size(); i++) {
             if (slots[i] < 0 || slots[i] > 30) { slots[i] = 0; }
         }
