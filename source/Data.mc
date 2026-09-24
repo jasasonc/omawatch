@@ -24,9 +24,16 @@ module Data {
     var temp as Number or Null = null;
     var bat as Number = 0;
 
-    var hist as Array<Number> = [] as Array<Number>;   // heart rate, oldest first
+    // Weather extras
+    var feels as Number or Null = null;
+    var humidity as Number or Null = null;
+    var wind as Float or Null = null;
+    var precip as Number or Null = null;
+
+    var hist as Array<Number> = [] as Array<Number>;   // graph source, oldest first
     var histMin as Number = 40;
     var histMax as Number = 120;
+    var graphLabel as String = "hr";
 
     var sunriseText as String = "--:--";
     var sunsetText as String = "--:--";
@@ -69,43 +76,110 @@ module Data {
     function readSensorHistory() as Void {
         if (!(Toybox has :SensorHistory)) { return; }
 
+        var newest = { :period => 1, :order => Toybox.SensorHistory.ORDER_NEWEST_FIRST };
+
         if (Toybox.SensorHistory has :getBodyBatteryHistory) {
-            var it = Toybox.SensorHistory.getBodyBatteryHistory({ :period => 1, :order => Toybox.SensorHistory.ORDER_NEWEST_FIRST });
+            var it = Toybox.SensorHistory.getBodyBatteryHistory(newest);
             var s = it.next();
             if (s != null && s.data != null) { bb = (s.data as Float).toNumber(); }
         }
 
-        if (Toybox.SensorHistory has :getHeartRateHistory) {
-            var it = Toybox.SensorHistory.getHeartRateHistory({ :period => new Time.Duration(4 * 3600), :order => Toybox.SensorHistory.ORDER_OLDEST_FIRST });
-            var values = [] as Array<Number>;
-            var lo = 250;
-            var hi = 0;
+        // Activity.Info.altitude only fills during a recorded activity, so the
+        // sensor history is the source that works on an idle watch face.
+        if (elev == null && Toybox.SensorHistory has :getElevationHistory) {
+            var it = Toybox.SensorHistory.getElevationHistory(newest);
             var s = it.next();
-            while (s != null) {
-                if (s.data != null) {
-                    var v = (s.data as Float).toNumber();
-                    if (v > 0) {
-                        values.add(v);
-                        if (v < lo) { lo = v; }
-                        if (v > hi) { hi = v; }
-                    }
-                }
-                s = it.next();
-            }
-            hist = values;
-            if (hi > lo) {
-                histMin = lo;
-                histMax = hi;
-            }
-            if (hr == null && values.size() > 0) { hr = values[values.size() - 1]; }
+            if (s != null && s.data != null) { elev = (s.data as Float).toNumber(); }
         }
+
+        readGraph(Theme.graph);
+    }
+
+    // The bottom graph. One source at a time, so only the chosen history is
+    // read. 0 heart rate, 1 body battery, 2 elevation, 3 pressure, 4 stress,
+    // 5 pulse ox, 6 temperature.
+    function readGraph(kind as Number) as Void {
+        var it = null;
+        var opts = { :period => new Time.Duration(4 * 3600), :order => Toybox.SensorHistory.ORDER_OLDEST_FIRST };
+
+        switch (kind) {
+            case 1:
+                if (Toybox.SensorHistory has :getBodyBatteryHistory) { it = Toybox.SensorHistory.getBodyBatteryHistory(opts); }
+                graphLabel = "bb";
+                break;
+            case 2:
+                if (Toybox.SensorHistory has :getElevationHistory) { it = Toybox.SensorHistory.getElevationHistory(opts); }
+                graphLabel = "elev";
+                break;
+            case 3:
+                if (Toybox.SensorHistory has :getPressureHistory) { it = Toybox.SensorHistory.getPressureHistory(opts); }
+                graphLabel = "baro";
+                break;
+            case 4:
+                if (Toybox.SensorHistory has :getStressHistory) { it = Toybox.SensorHistory.getStressHistory(opts); }
+                graphLabel = "stress";
+                break;
+            case 5:
+                if (Toybox.SensorHistory has :getOxygenSaturationHistory) { it = Toybox.SensorHistory.getOxygenSaturationHistory(opts); }
+                graphLabel = "spo2";
+                break;
+            case 6:
+                if (Toybox.SensorHistory has :getTemperatureHistory) { it = Toybox.SensorHistory.getTemperatureHistory(opts); }
+                graphLabel = "temp";
+                break;
+            default:
+                if (Toybox.SensorHistory has :getHeartRateHistory) { it = Toybox.SensorHistory.getHeartRateHistory(opts); }
+                graphLabel = "hr";
+                break;
+        }
+        if (it == null) {
+            hist = [] as Array<Number>;
+            return;
+        }
+
+        // Pressure comes in pascals. Hectopascals keep the numbers small and
+        // the graph is drawn from the range anyway.
+        var divide = kind == 3 ? 100 : 1;
+
+        var values = [] as Array<Number>;
+        var lo = 100000;
+        var hi = -100000;
+        var s = (it as Toybox.SensorHistory.SensorHistoryIterator).next();
+        while (s != null) {
+            if (s.data != null) {
+                var v = ((s.data as Float) / divide).toNumber();
+                if (kind != 0 || v > 0) {
+                    values.add(v);
+                    if (v < lo) { lo = v; }
+                    if (v > hi) { hi = v; }
+                }
+            }
+            s = (it as Toybox.SensorHistory.SensorHistoryIterator).next();
+        }
+        hist = values;
+        if (hi > lo) {
+            histMin = lo;
+            histMax = hi;
+        } else if (values.size() > 0) {
+            // A flat line. Without this the graph keeps the range of whatever
+            // source was read before.
+            histMin = lo - 1;
+            histMax = hi + 1;
+        }
+        if (kind == 0 && hr == null && values.size() > 0) { hr = values[values.size() - 1]; }
     }
 
     function readWeather(act as Activity.Info or Null) as Void {
         if (!(Toybox has :Weather)) { return; }
 
         var cc = Toybox.Weather.getCurrentConditions();
-        if (cc != null && cc.temperature != null) { temp = (cc.temperature as Numeric).toNumber(); }
+        if (cc != null) {
+            if (cc.temperature != null) { temp = (cc.temperature as Numeric).toNumber(); }
+            if (cc.feelsLikeTemperature != null) { feels = (cc.feelsLikeTemperature as Numeric).toNumber(); }
+            if (cc.relativeHumidity != null) { humidity = cc.relativeHumidity as Number; }
+            if (cc.windSpeed != null) { wind = cc.windSpeed as Float; }
+            if (cc.precipitationChance != null) { precip = cc.precipitationChance as Number; }
+        }
 
         // Sunrise and sunset need a position. The watch's own last fix comes
         // first, then an activity fix, then the weather station, which can be
@@ -183,11 +257,15 @@ module Data {
     // Garmin reports the temperature in Celsius. Setting 0 follows the watch
     // unit setting, 1 is Celsius, 2 is Fahrenheit.
     function tempValue() as Number or Null {
-        if (temp == null) { return null; }
+        return convertTemp(temp);
+    }
+
+    function convertTemp(celsius as Number or Null) as Number or Null {
+        if (celsius == null) { return null; }
         var unit = Theme.tempUnit;
         var fahrenheit = unit == 2 ||
             (unit == 0 && System.getDeviceSettings().temperatureUnits == System.UNIT_STATUTE);
-        return fahrenheit ? ((temp as Number) * 9.0 / 5.0 + 32.0).toNumber() : temp;
+        return fahrenheit ? ((celsius as Number) * 9.0 / 5.0 + 32.0).toNumber() : celsius;
     }
 
     // 8432 of 10000 -> "8432/10k"
@@ -210,7 +288,7 @@ module Data {
 
     // Top bar: fraction 0..1 (or -1 when unknown) and the two end labels.
     // 0 daylight, 1 step goal, 2 floors goal, 3 active minutes, 4 body battery,
-    // 5 watch battery, 6 day, 7 off.
+    // 5 watch battery, 6 day, 7 off, 8 stress, 9 sleep score, 10 pulse ox.
     function barFraction(kind as Number) as Float {
         switch (kind) {
             case 0: return sunFraction;
@@ -222,6 +300,9 @@ module Data {
             case 6:
                 var t = System.getClockTime();
                 return (t.hour * 60 + t.min).toFloat() / 1440.0;
+            case 8: return fraction(stress, 100);
+            case 9: return fraction(Comp.number(Comp.SLEEP_SCORE), 100);
+            case 10: return fraction(Comp.number(Comp.PULSE_OX), 100);
         }
         return -1.0;
     }
@@ -241,6 +322,9 @@ module Data {
             case 4: return "bb";
             case 5: return "bat";
             case 6: return "00";
+            case 8: return "stress";
+            case 9: return "sleep";
+            case 10: return "spo2";
         }
         return "";
     }
@@ -254,6 +338,9 @@ module Data {
             case 4: return numText(bb);
             case 5: return bat.toString() + "%";
             case 6: return "24";
+            case 8: return numText(stress);
+            case 9: return numText(Comp.number(Comp.SLEEP_SCORE));
+            case 10: return numText(Comp.number(Comp.PULSE_OX));
         }
         return "";
     }
@@ -262,9 +349,65 @@ module Data {
         return goal == null ? "--" : compact(goal as Number);
     }
 
+
+    // Distance. Setting 0 follows the watch, 1 is kilometres, 2 is miles.
+    function useMiles() as Boolean {
+        var unit = Theme.distUnit;
+        return unit == 2 ||
+            (unit == 0 && System.getDeviceSettings().distanceUnits == System.UNIT_STATUTE);
+    }
+
+    function distUnitText() as String {
+        return useMiles() ? " mi" : " km";
+    }
+
+    // Metres to a short "42.2" with one decimal.
+    function distText(metres as Number or Null) as String {
+        if (metres == null) { return "--"; }
+        var d = (metres as Number).toFloat() / (useMiles() ? 1609.344 : 1000.0);
+        var whole = d.toNumber();
+        var tenth = ((d - whole) * 10.0 + 0.5).toNumber();
+        if (tenth >= 10) {
+            whole += 1;
+            tenth = 0;
+        }
+        return whole.toString() + "." + tenth.toString();
+    }
+
+    // Seconds to "h:mm" for a race prediction, or "mm:ss" under an hour.
+    function timeText(seconds as Number or Null) as String {
+        if (seconds == null || seconds <= 0) { return "--"; }
+        var v = seconds as Number;
+        var h = v / 3600;
+        var m = (v % 3600) / 60;
+        if (h > 0) { return h.toString() + ":" + two(m); }
+        return two(m) + ":" + two(v % 60);
+    }
+
+    // Pascals to hectopascals, or to hundredths of an inch of mercury.
+    function pressureText() as String {
+        var pa = Comp.number(Comp.PRESSURE);
+        if (pa == null) { return "--"; }
+        if (useMiles()) {
+            var inhg = (pa as Number).toFloat() / 3386.389;
+            var whole = inhg.toNumber();
+            var hundredths = ((inhg - whole) * 100.0 + 0.5).toNumber();
+            return whole.toString() + "." + two(hundredths);
+        }
+        return ((pa as Number) / 100).toString();
+    }
+
+    function windText() as String {
+        if (wind == null) { return "--"; }
+        var v = (wind as Float) * (useMiles() ? 2.236936 : 3.6);
+        return (v + 0.5).toNumber().toString();
+    }
+
     // Slot values, in the order of the settings list.
     function slotLabel(slot as Number) as String {
-        var names = ["hr", "bb", "elev", "steps", "temp", "bat", "floors", "stress", "goal", "steps", "floors", "active"];
+        var names = ["hr", "bb", "elev", "steps", "temp", "bat", "floors", "stress", "goal", "steps", "floors", "active",
+                     "vo2", "vo2b", "run", "bike", "baro", "cal", "resp", "spo2", "sleep", "recov", "notif",
+                     "5k", "10k", "half", "mara", "feels", "hum", "wind", "rain"];
         return slot >= 0 && slot < names.size() ? names[slot] : "";
     }
 
@@ -282,8 +425,31 @@ module Data {
             case 9: return ofGoal(steps, stepGoal);
             case 10: return ofGoal(floors, floorsGoal);
             case 11: return ofGoal(activeWeek, activeWeekGoal);
+            case 12: return numText(Comp.number(Comp.VO2_RUN));
+            case 13: return numText(Comp.number(Comp.VO2_BIKE));
+            case 14: return distText(Comp.number(Comp.WEEK_RUN));
+            case 15: return distText(Comp.number(Comp.WEEK_BIKE));
+            case 16: return pressureText();
+            case 17: return numText(Comp.number(Comp.CALORIES));
+            case 18: return numText(Comp.number(Comp.RESPIRATION));
+            case 19: return numText(Comp.number(Comp.PULSE_OX));
+            case 20: return numText(Comp.number(Comp.SLEEP_SCORE));
+            case 21: return timeText(minutesToSeconds(Comp.number(Comp.RECOVERY)));
+            case 22: return numText(Comp.number(Comp.NOTIFICATIONS));
+            case 23: return timeText(Comp.number(Comp.RACE_5K));
+            case 24: return timeText(Comp.number(Comp.RACE_10K));
+            case 25: return timeText(Comp.number(Comp.RACE_HALF));
+            case 26: return timeText(Comp.number(Comp.RACE_MARATHON));
+            case 27: return numText(convertTemp(feels));
+            case 28: return numText(humidity);
+            case 29: return windText();
+            case 30: return numText(precip);
         }
         return "";
+    }
+
+    function minutesToSeconds(minutes as Number or Null) as Number or Null {
+        return minutes == null ? null : (minutes as Number) * 60;
     }
 
     function slotUnit(slot as Number) as String {
@@ -292,6 +458,14 @@ module Data {
             case 4: return "°";
             case 5: return "%";
             case 8: return "%";
+            case 14: return distUnitText();
+            case 15: return distUnitText();
+            case 16: return useMiles() ? " in" : " hPa";
+            case 19: return "%";
+            case 27: return "°";
+            case 28: return "%";
+            case 29: return useMiles() ? " mph" : " kmh";
+            case 30: return "%";
         }
         return "";
     }

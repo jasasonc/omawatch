@@ -44,7 +44,7 @@ module LayoutWaybar {
 
         var boxY = Draw.p(288);
         var boxH = Draw.p(50);
-        Draw.box(dc, Draw.p(75), boxY, Draw.p(240), boxH, "hr", Fonts.small);
+        Draw.box(dc, Draw.p(75), boxY, Draw.p(240), boxH, Data.graphLabel, Fonts.small);
         Draw.graph(dc, Draw.p(83), boxY + Draw.p(9), Draw.p(224), boxH - Draw.p(18));
     }
 

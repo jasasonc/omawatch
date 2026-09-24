@@ -44,6 +44,21 @@
             <listEntry value="5">@Strings.TopBar5</listEntry>
             <listEntry value="6">@Strings.TopBar6</listEntry>
             <listEntry value="7">@Strings.TopBar7</listEntry>
+            <listEntry value="8">@Strings.TopBar8</listEntry>
+            <listEntry value="9">@Strings.TopBar9</listEntry>
+            <listEntry value="10">@Strings.TopBar10</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Graph" title="@Strings.GraphTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.Graph0</listEntry>
+            <listEntry value="1">@Strings.Graph1</listEntry>
+            <listEntry value="2">@Strings.Graph2</listEntry>
+            <listEntry value="3">@Strings.Graph3</listEntry>
+            <listEntry value="4">@Strings.Graph4</listEntry>
+            <listEntry value="5">@Strings.Graph5</listEntry>
+            <listEntry value="6">@Strings.Graph6</listEntry>
         </settingConfig>
     </setting>
 
@@ -52,6 +67,14 @@
             <listEntry value="0">@Strings.TempUnit0</listEntry>
             <listEntry value="1">@Strings.TempUnit1</listEntry>
             <listEntry value="2">@Strings.TempUnit2</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.DistUnit" title="@Strings.DistUnitTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.DistUnit0</listEntry>
+            <listEntry value="1">@Strings.DistUnit1</listEntry>
+            <listEntry value="2">@Strings.DistUnit2</listEntry>
         </settingConfig>
     </setting>
 
@@ -69,6 +92,25 @@
             <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
             <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
             <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
+            <listEntry value="12">@Strings.ValueVo2Run</listEntry>
+            <listEntry value="13">@Strings.ValueVo2Bike</listEntry>
+            <listEntry value="14">@Strings.ValueWeekRun</listEntry>
+            <listEntry value="15">@Strings.ValueWeekBike</listEntry>
+            <listEntry value="16">@Strings.ValuePressure</listEntry>
+            <listEntry value="17">@Strings.ValueCalories</listEntry>
+            <listEntry value="18">@Strings.ValueRespiration</listEntry>
+            <listEntry value="19">@Strings.ValuePulseOx</listEntry>
+            <listEntry value="20">@Strings.ValueSleep</listEntry>
+            <listEntry value="21">@Strings.ValueRecovery</listEntry>
+            <listEntry value="22">@Strings.ValueNotifications</listEntry>
+            <listEntry value="23">@Strings.ValueRace5k</listEntry>
+            <listEntry value="24">@Strings.ValueRace10k</listEntry>
+            <listEntry value="25">@Strings.ValueRaceHalf</listEntry>
+            <listEntry value="26">@Strings.ValueRaceMarathon</listEntry>
+            <listEntry value="27">@Strings.ValueFeels</listEntry>
+            <listEntry value="28">@Strings.ValueHumidity</listEntry>
+            <listEntry value="29">@Strings.ValueWind</listEntry>
+            <listEntry value="30">@Strings.ValueRain</listEntry>
         </settingConfig>
     </setting>
 
@@ -86,6 +128,25 @@
             <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
             <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
             <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
+            <listEntry value="12">@Strings.ValueVo2Run</listEntry>
+            <listEntry value="13">@Strings.ValueVo2Bike</listEntry>
+            <listEntry value="14">@Strings.ValueWeekRun</listEntry>
+            <listEntry value="15">@Strings.ValueWeekBike</listEntry>
+            <listEntry value="16">@Strings.ValuePressure</listEntry>
+            <listEntry value="17">@Strings.ValueCalories</listEntry>
+            <listEntry value="18">@Strings.ValueRespiration</listEntry>
+            <listEntry value="19">@Strings.ValuePulseOx</listEntry>
+            <listEntry value="20">@Strings.ValueSleep</listEntry>
+            <listEntry value="21">@Strings.ValueRecovery</listEntry>
+            <listEntry value="22">@Strings.ValueNotifications</listEntry>
+            <listEntry value="23">@Strings.ValueRace5k</listEntry>
+            <listEntry value="24">@Strings.ValueRace10k</listEntry>
+            <listEntry value="25">@Strings.ValueRaceHalf</listEntry>
+            <listEntry value="26">@Strings.ValueRaceMarathon</listEntry>
+            <listEntry value="27">@Strings.ValueFeels</listEntry>
+            <listEntry value="28">@Strings.ValueHumidity</listEntry>
+            <listEntry value="29">@Strings.ValueWind</listEntry>
+            <listEntry value="30">@Strings.ValueRain</listEntry>
         </settingConfig>
     </setting>
 
@@ -103,6 +164,25 @@
             <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
             <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
             <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
+            <listEntry value="12">@Strings.ValueVo2Run</listEntry>
+            <listEntry value="13">@Strings.ValueVo2Bike</listEntry>
+            <listEntry value="14">@Strings.ValueWeekRun</listEntry>
+            <listEntry value="15">@Strings.ValueWeekBike</listEntry>
+            <listEntry value="16">@Strings.ValuePressure</listEntry>
+            <listEntry value="17">@Strings.ValueCalories</listEntry>
+            <listEntry value="18">@Strings.ValueRespiration</listEntry>
+            <listEntry value="19">@Strings.ValuePulseOx</listEntry>
+            <listEntry value="20">@Strings.ValueSleep</listEntry>
+            <listEntry value="21">@Strings.ValueRecovery</listEntry>
+            <listEntry value="22">@Strings.ValueNotifications</listEntry>
+            <listEntry value="23">@Strings.ValueRace5k</listEntry>
+            <listEntry value="24">@Strings.ValueRace10k</listEntry>
+            <listEntry value="25">@Strings.ValueRaceHalf</listEntry>
+            <listEntry value="26">@Strings.ValueRaceMarathon</listEntry>
+            <listEntry value="27">@Strings.ValueFeels</listEntry>
+            <listEntry value="28">@Strings.ValueHumidity</listEntry>
+            <listEntry value="29">@Strings.ValueWind</listEntry>
+            <listEntry value="30">@Strings.ValueRain</listEntry>
         </settingConfig>
     </setting>
 
@@ -120,6 +200,25 @@
             <listEntry value="9">@Strings.ValueStepsGoal</listEntry>
             <listEntry value="10">@Strings.ValueFloorsGoal</listEntry>
             <listEntry value="11">@Strings.ValueActiveGoal</listEntry>
+            <listEntry value="12">@Strings.ValueVo2Run</listEntry>
+            <listEntry value="13">@Strings.ValueVo2Bike</listEntry>
+            <listEntry value="14">@Strings.ValueWeekRun</listEntry>
+            <listEntry value="15">@Strings.ValueWeekBike</listEntry>
+            <listEntry value="16">@Strings.ValuePressure</listEntry>
+            <listEntry value="17">@Strings.ValueCalories</listEntry>
+            <listEntry value="18">@Strings.ValueRespiration</listEntry>
+            <listEntry value="19">@Strings.ValuePulseOx</listEntry>
+            <listEntry value="20">@Strings.ValueSleep</listEntry>
+            <listEntry value="21">@Strings.ValueRecovery</listEntry>
+            <listEntry value="22">@Strings.ValueNotifications</listEntry>
+            <listEntry value="23">@Strings.ValueRace5k</listEntry>
+            <listEntry value="24">@Strings.ValueRace10k</listEntry>
+            <listEntry value="25">@Strings.ValueRaceHalf</listEntry>
+            <listEntry value="26">@Strings.ValueRaceMarathon</listEntry>
+            <listEntry value="27">@Strings.ValueFeels</listEntry>
+            <listEntry value="28">@Strings.ValueHumidity</listEntry>
+            <listEntry value="29">@Strings.ValueWind</listEntry>
+            <listEntry value="30">@Strings.ValueRain</listEntry>
         </settingConfig>
     </setting>
 

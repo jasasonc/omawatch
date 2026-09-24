@@ -48,6 +48,25 @@
     <string id="ValueStepsGoal">Steps / goal</string>
     <string id="ValueFloorsGoal">Floors / goal</string>
     <string id="ValueActiveGoal">Active minutes / goal</string>
+    <string id="ValueVo2Run">VO2 max run</string>
+    <string id="ValueVo2Bike">VO2 max bike</string>
+    <string id="ValueWeekRun">Weekly run distance</string>
+    <string id="ValueWeekBike">Weekly bike distance</string>
+    <string id="ValuePressure">Pressure</string>
+    <string id="ValueCalories">Calories</string>
+    <string id="ValueRespiration">Respiration rate</string>
+    <string id="ValuePulseOx">Pulse ox</string>
+    <string id="ValueSleep">Sleep score</string>
+    <string id="ValueRecovery">Recovery time</string>
+    <string id="ValueNotifications">Notifications</string>
+    <string id="ValueRace5k">Race time 5K</string>
+    <string id="ValueRace10k">Race time 10K</string>
+    <string id="ValueRaceHalf">Race time half</string>
+    <string id="ValueRaceMarathon">Race time marathon</string>
+    <string id="ValueFeels">Feels like</string>
+    <string id="ValueHumidity">Humidity</string>
+    <string id="ValueWind">Wind speed</string>
+    <string id="ValueRain">Rain chance</string>
 
     <string id="TopBarTitle">Top bar</string>
     <string id="TopBar0">Daylight</string>
@@ -58,10 +77,27 @@
     <string id="TopBar5">Watch battery</string>
     <string id="TopBar6">Day</string>
     <string id="TopBar7">Off</string>
+    <string id="TopBar8">Stress</string>
+    <string id="TopBar9">Sleep score</string>
+    <string id="TopBar10">Pulse ox</string>
+
+    <string id="GraphTitle">Graph</string>
+    <string id="Graph0">Heart rate</string>
+    <string id="Graph1">Body battery</string>
+    <string id="Graph2">Elevation</string>
+    <string id="Graph3">Pressure</string>
+    <string id="Graph4">Stress</string>
+    <string id="Graph5">Pulse ox</string>
+    <string id="Graph6">Temperature</string>
 
     <string id="TempUnitTitle">Temperature</string>
     <string id="TempUnit0">Watch setting</string>
     <string id="TempUnit1">Celsius</string>
     <string id="TempUnit2">Fahrenheit</string>
+
+    <string id="DistUnitTitle">Distance</string>
+    <string id="DistUnit0">Watch setting</string>
+    <string id="DistUnit1">Kilometres</string>
+    <string id="DistUnit2">Miles</string>
 
 </strings>

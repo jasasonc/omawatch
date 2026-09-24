@@ -16,6 +16,8 @@ module Theme {
     var slots as Array<Number> = [0, 1, 2, 3];
     var topBar as Number = 0;
     var tempUnit as Number = 0;
+    var distUnit as Number = 0;
+    var graph as Number = 0;
 
     function load() as Void {
         themeIndex = Cfg.THEME >= 0 ? Cfg.THEME : num("Theme", 0);
@@ -24,12 +26,16 @@ module Theme {
         if (layout < 0) { layout = Cfg.LAYOUT; }
         slots = [num("Slot1", 0), num("Slot2", 1), num("Slot3", 2), num("Slot4", 3)];
         for (var i = 0; i < slots.size(); i++) {
-            if (slots[i] < 0 || slots[i] > 11) { slots[i] = 0; }
+            if (slots[i] < 0 || slots[i] > 30) { slots[i] = 0; }
         }
         topBar = num("TopBar", 0);
-        if (topBar < 0 || topBar > 7) { topBar = 0; }
+        if (topBar < 0 || topBar > 10) { topBar = 0; }
         tempUnit = num("TempUnit", 0);
         if (tempUnit < 0 || tempUnit > 2) { tempUnit = 0; }
+        distUnit = num("DistUnit", 0);
+        if (distUnit < 0 || distUnit > 2) { distUnit = 0; }
+        graph = num("Graph", 0);
+        if (graph < 0 || graph > 6) { graph = 0; }
     }
 
     function num(key as String, fallback as Number) as Number {

@@ -37,7 +37,7 @@ module LayoutNeovim {
 
         var boxY = Draw.p(278);
         var boxH = Draw.p(52);
-        Draw.box(dc, Draw.p(74), boxY, Draw.p(242), boxH, "hr", Fonts.small);
+        Draw.box(dc, Draw.p(74), boxY, Draw.p(242), boxH, Data.graphLabel, Fonts.small);
         Draw.graph(dc, Draw.p(82), boxY + Draw.p(10), Draw.p(226), boxH - Draw.p(18));
 
         statusLine(dc, cx, Draw.p(348));
