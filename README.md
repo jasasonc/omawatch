@@ -82,13 +82,17 @@ disconnect the cable.
 ## Fonts
 
 The face uses JetBrains Mono, converted to bitmap fonts with
-`tools/mkfont.py`. To make the fonts for one screen size:
+`tools/mkfont.py`. To make every font for every screen size:
 
 ```
-tools/mkfont.py --ttf /usr/share/fonts/TTF/JetBrainsMonoNerdFont-Regular.ttf \
-  --size 17 --out resources-round-390x390/fonts --name jbmrow \
-  --extra-codepoints U+E34C,U+E34D,U+F240,U+E30D
+tools/genfonts.sh
 ```
+
+The row and small fonts hold the Latin, Greek and Cyrillic alphabets, 431
+glyphs each. The watch gives the date in its own language, and a letter that
+is not in the font is drawn as nothing, so the fonts must cover every
+language the watch can be set to. The big font shows the time, so it holds
+only the digits and a colon.
 
 JetBrains Mono is licensed under the SIL Open Font License 1.1. See
 `docs/OFL.txt`.
