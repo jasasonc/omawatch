@@ -345,6 +345,34 @@ module Data {
         return "";
     }
 
+    // A short form of the top bar value, for the always on screen, where a
+    // bare line says nothing. Four characters at most.
+    function barSummary(kind as Number) as String {
+        switch (kind) {
+            case 0:
+                if (sunFraction < 0.0) { return ""; }
+                // Before sunset the sunset time is next, after it the sunrise.
+                return sunFraction >= 1.0 ? Draw.iconSunrise() + sunriseText
+                                          : Draw.iconSunset() + sunsetText;
+            case 1: return pct(percent(steps, stepGoal));
+            case 2: return pct(percent(floors, floorsGoal));
+            case 3: return pct(percent(activeWeek, activeWeekGoal));
+            case 4: return numText(bb);
+            case 5: return bat.toString() + "%";
+            case 6:
+                var t = System.getClockTime();
+                return pct((t.hour * 60 + t.min) * 100 / 1440);
+            case 8: return numText(stress);
+            case 9: return numText(Comp.number(Comp.SLEEP_SCORE));
+            case 10: return pct(Comp.number(Comp.PULSE_OX));
+        }
+        return "";
+    }
+
+    function pct(value as Number or Null) as String {
+        return value == null ? "--" : value.toString() + "%";
+    }
+
     function goalText(goal as Number or Null) as String {
         return goal == null ? "--" : compact(goal as Number);
     }
@@ -401,6 +429,36 @@ module Data {
         if (wind == null) { return "--"; }
         var v = (wind as Float) * (useMiles() ? 2.236936 : 3.6);
         return (v + 0.5).toNumber().toString();
+    }
+
+    // The colour of one graph bar. A value only means something next to what
+    // the source measures, so each source has its own map:
+    //
+    //   heart rate   the position in the range shown, low green to high red
+    //   body battery what is left of it, high green to low red
+    //   stress       the Garmin bands, 25 and 50
+    //   pulse ox     95 and above is normal, below 90 is low
+    //   temperature  cold blue, mild green, warm yellow, hot red
+    //   elevation    no good or bad value, so one colour
+    //   pressure     the same
+    function graphColour(value as Number, f as Float) as Number {
+        switch (Theme.graph) {
+            case 1:
+                return value >= 50 ? Theme.GREEN : (value >= 25 ? Theme.YELLOW : Theme.RED);
+            case 2:
+            case 3:
+                return Theme.CYAN;
+            case 4:
+                return value <= 25 ? Theme.GREEN : (value <= 50 ? Theme.YELLOW : Theme.RED);
+            case 5:
+                return value >= 95 ? Theme.GREEN : (value >= 90 ? Theme.YELLOW : Theme.RED);
+            case 6:
+                if (value <= 0) { return Theme.CYAN; }
+                return value <= 15 ? Theme.GREEN : (value <= 25 ? Theme.YELLOW : Theme.RED);
+        }
+        // Heart rate. There is no fixed scale, so the bar is coloured by how
+        // high it is in the hours on show.
+        return f > 0.72 ? Theme.RED : (f > 0.5 ? Theme.YELLOW : Theme.GREEN);
     }
 
     // Slot values, in the order of the settings list.

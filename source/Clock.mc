@@ -22,6 +22,13 @@ module Clock {
         return lower ? s.toLower() : s;
     }
 
+    // "11 Sep". The Waybar layout shows the weekday as workspace numbers, so
+    // the date there does not repeat it.
+    function dayMonth() as String {
+        var i = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+        return i.day.toString() + " " + (i.month as String);
+    }
+
     function weekday() as Number {
         var i = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         // Gregorian counts Sunday as 1, the bar counts Monday as 1.

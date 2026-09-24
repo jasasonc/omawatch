@@ -61,14 +61,24 @@ class OmaWatchView extends WatchUi.WatchFace {
 
         Draw.text(dc, cx, cy, Fonts.big, AOD_COLOUR, Clock.timeText(), Graphics.TEXT_JUSTIFY_CENTER);
 
+        if (Theme.topBar == 7) { return; }
+
+        // A bare line does not say much, so the value goes under it. Both are
+        // thin and grey, to keep the lit pixels low.
         var f = Data.barFraction(Theme.topBar);
-        if (Theme.topBar != 7 && f >= 0.0) {
-            var w = Draw.p(160);
-            var y = cy - Draw.p(90);
-            dc.setColor(AOD_COLOUR, Graphics.COLOR_TRANSPARENT);
-            dc.setPenWidth(1);
+        var w = Draw.p(160);
+        var y = cy - Draw.p(96);
+        dc.setColor(AOD_COLOUR, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(1);
+        if (f >= 0.0) {
             var px = cx - w / 2 + (w * f).toNumber();
             dc.drawLine(cx - w / 2, y, px, y);
+            dc.drawLine(px, y - Draw.p(3), px, y + Draw.p(3));
+        }
+
+        var summary = Data.barSummary(Theme.topBar);
+        if (!summary.equals("")) {
+            Draw.text(dc, cx, y + Draw.p(18), Fonts.small, AOD_COLOUR, summary, Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 

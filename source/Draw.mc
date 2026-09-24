@@ -16,6 +16,20 @@ module Draw {
         return (v * scale + 0.5).toNumber();
     }
 
+    // Where the "=" goes. The rows line up on one column, so it has to clear
+    // the longest label of the four rows, whatever the text size.
+    // cap holds the column back where the space is tight, as in the two
+    // columns of the Waybar layout.
+    function eqOffset(dc as Dc, font as Graphics.FontType, base as Number, cap as Number) as Number {
+        var eq = p(base);
+        var most = p(cap);
+        for (var i = 0; i < Theme.slots.size(); i++) {
+            var w = dc.getTextWidthInPixels(Data.slotLabel(Theme.slots[i]) + " ", font);
+            if (w > eq) { eq = w; }
+        }
+        return eq > most ? most : eq;
+    }
+
     // The space between two code rows. Large text needs more of it.
     function rowGap() as Number {
         return p(Theme.textSize == 1 ? 26 : 22);
@@ -55,7 +69,7 @@ module Draw {
         dc.drawText(x, y, font, value, justify | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    // btop-style bar graph of the heart rate history.
+    // btop-style bar graph of the chosen history.
     function graph(dc as Dc, x as Number, y as Number, w as Number, h as Number) as Void {
         var n = Data.hist.size();
         if (n < 2) { return; }
@@ -77,8 +91,7 @@ module Draw {
             var f = (v - Data.histMin).toFloat() / span.toFloat();
             if (f < 0.06) { f = 0.06; }
             var bh = (f * h).toNumber();
-            var colour = f > 0.72 ? Theme.RED : (f > 0.5 ? Theme.YELLOW : Theme.GREEN);
-            dc.setColor(Theme.c(colour), Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Theme.c(Data.graphColour(v, f)), Graphics.COLOR_TRANSPARENT);
             dc.fillRectangle(x + i * (barW + gap), y + h - bh, barW, bh);
         }
     }

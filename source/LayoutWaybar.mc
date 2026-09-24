@@ -21,7 +21,7 @@ module LayoutWaybar {
         var barY = Draw.p(68);
         Draw.text(dc, Draw.p(74), barY, Fonts.row, Theme.c(Theme.YELLOW), Draw.iconSun(), Graphics.TEXT_JUSTIFY_LEFT);
         Draw.text(dc, Draw.p(96), barY, Fonts.row, Theme.c(Theme.FG), t + "°", Graphics.TEXT_JUSTIFY_LEFT);
-        Draw.text(dc, cx, barY, Fonts.row, Theme.c(Theme.FG), Clock.dateText(false), Graphics.TEXT_JUSTIFY_CENTER);
+        Draw.text(dc, cx, barY, Fonts.row, Theme.c(Theme.FG), Clock.dayMonth(), Graphics.TEXT_JUSTIFY_CENTER);
         Draw.text(dc, w - Draw.p(96), barY, Fonts.row, Theme.c(Theme.FG), Data.bat.toString() + "%", Graphics.TEXT_JUSTIFY_RIGHT);
         Draw.text(dc, w - Draw.p(92), barY, Fonts.row, Theme.c(Theme.FG), Draw.iconBattery(), Graphics.TEXT_JUSTIFY_LEFT);
 
@@ -36,7 +36,7 @@ module LayoutWaybar {
 
         var left = cx - Draw.p(142);
         var right = cx + Draw.p(22);
-        var eq = Draw.p(56);
+        var eq = Draw.eqOffset(dc, Fonts.small, 56, 72);
         var top = Draw.p(236);
         var gap = Draw.rowGap();
         rowAt(dc, left, top, eq, 0);
@@ -50,9 +50,11 @@ module LayoutWaybar {
         Draw.graph(dc, Draw.p(83), boxY + Draw.p(9), Draw.p(224), boxH - Draw.p(18));
     }
 
+    // The rows sit in two columns, so they use the small font. The row font
+    // does not fit a long label and a long value in half a screen.
     function rowAt(dc as Dc, x as Number, y as Number, eq as Number, slot as Number) as Void {
         var id = Theme.slots[slot];
-        Draw.row(dc, x, y, Fonts.row, Data.slotLabel(id), Data.slotValue(id), Data.slotUnit(id), eq);
+        Draw.row(dc, x, y, Fonts.small, Data.slotLabel(id), Data.slotValue(id), Data.slotUnit(id), eq);
     }
 
     // Weekday numbers 1 to 7, today filled like the active workspace.
